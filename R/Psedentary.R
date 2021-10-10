@@ -1,8 +1,8 @@
 #Psedentary (unweighted mean & median values)
   
-Psedentary=function(Data)
+Psedentary=function(data)
 {
-df%>%
-mutate(cln = if_else(P16cln==1, 1, 2, missing = 2))
-  return(Data)
+data%>%
+mutate(cln = if_else(P16cln==1, 1, 2, missing = 2))%>%
+  return(data)
 }
