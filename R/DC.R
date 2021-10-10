@@ -1,8 +1,8 @@
 #Data Cleaning P1-P16
 
-DC=function(Data)
+DC=function(data)
 {
-Data %>%
+data %>%
 ### Clean Recode P1-P3
   mutate(P3a = replace(P3a, P3a==15 & (is.na(P3b) | P3b==0 | P3b==15 | P3b==77 | P3b==88 | P3b==99), 0)) %>% 
   mutate(P3b = replace(P3b, P3a==15 & (is.na(P3b) | P3b==0 | P3b==15 | P3b==77 | P3b==88 | P3b==99), 15)) %>% 
@@ -141,5 +141,5 @@ Data %>%
   mutate(P16 = P16amin + P16bmin) %>% 
   # Cleans P16
   mutate(P16cln = if_else(P16>=0 & P16<1441, 1, 2, missing = 2))
-return(Data)
+return(data)
 }
