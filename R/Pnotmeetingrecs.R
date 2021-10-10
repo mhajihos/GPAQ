@@ -1,8 +1,8 @@
   #Pnotmeetingrecs (unweighted)
 
-Pnotmeetingrecs=function(Data)
+Pnotmeetingrecs=function(data)
 {
-Data%>%
+data%>%
  
   mutate(P1t3 = ifelse(P1t3cln==1, P2*P3*8, NA)) %>% 
   mutate(P4t6 = ifelse(P4t6cln==1, P5*P6*4, NA)) %>% 
@@ -15,6 +15,6 @@ Data%>%
   
   # UPDATED: Calculate additional >=1200 MET-minutes/week
   mutate(mets1200 = if_else(Ptotal>=1200, "2) meets recs", "1) doesn't meet recs", missing = "1) doesn't meet recs")) %>% 
-  mutate(mets1200 = factor(mets1200))
-  return(Data)
+  mutate(mets1200 = factor(mets1200))%>%
+  return(data)
 }
