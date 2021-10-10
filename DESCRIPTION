@@ -12,6 +12,5 @@ Imports:
     survey,
     RODBC,
     knitr,
-    rlist,
     dplyr,
     stringr
