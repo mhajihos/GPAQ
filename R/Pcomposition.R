@@ -1,8 +1,8 @@
  #Pcomposition (unweighted)
 
-Pcomposition=function(Data)
+Pcomposition=function(data)
 {
-Data%>%
+data%>%
   mutate(P1t3 = ifelse(P1t3cln==1, P2*P3, NA)) %>% 
   mutate(P4t6 = ifelse(P4t6cln==1, P5*P6, NA)) %>% 
   mutate(P7t9 = ifelse(P7t9cln==1, P8*P9, NA)) %>% 
@@ -16,6 +16,6 @@ Data%>%
                              P13t15cln==1, 1, 2, missing = 2)) %>% 
   mutate(cln = replace(cln, is.na(P1) & is.na(P4) & is.na(P7) & 
                              is.na(P10) & is.na(P13), 2)) %>% 
-  mutate(cln = replace(cln, Ptotal==0, 2))
- return(Data)
+  mutate(cln = replace(cln, Ptotal==0, 2))%>% 
+ return(data)
 }
