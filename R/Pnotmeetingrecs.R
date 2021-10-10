@@ -16,4 +16,5 @@ Data%>%
   # UPDATED: Calculate additional >=1200 MET-minutes/week
   mutate(mets1200 = if_else(Ptotal>=1200, "2) meets recs", "1) doesn't meet recs", missing = "1) doesn't meet recs")) %>% 
   mutate(mets1200 = factor(mets1200))
+  return(Data)
 }
