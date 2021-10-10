@@ -141,5 +141,5 @@ Data %>%
   mutate(P16 = P16amin + P16bmin) %>% 
   # Cleans P16
   mutate(P16cln = if_else(P16>=0 & P16<1441, 1, 2, missing = 2))
-
+return(Data)
 }
