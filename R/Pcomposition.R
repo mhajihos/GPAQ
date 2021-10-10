@@ -17,4 +17,5 @@ Data%>%
   mutate(cln = replace(cln, is.na(P1) & is.na(P4) & is.na(P7) & 
                              is.na(P10) & is.na(P13), 2)) %>% 
   mutate(cln = replace(cln, Ptotal==0, 2))
+ return(Data)
 }
