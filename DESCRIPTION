@@ -1,0 +1,15 @@
+Package: WHO Physical Activity 
+Type: Package
+Title: Global Physical Activity Questionnaire
+Version: 0.1.0
+Author: Morteza Hajihosseini
+Maintainer:  Morteza Hajihosseini <mhajihos@ualberta.ca>
+Description: The Global Physical Activity Questionnaire was developed by WHO for
+physical activity surveillance in countries. It collects information on physical
+activity participation in three settings (or domains) as well as sedentary
+behaviour, comprising 16 questions (P1-P16). 
+License: WHO European Office for the Prevention and Control of NCDs (NCD Office)
+Encoding: UTF-8
+LazyData: FALSE
+Imports:
+"survey","RODBC","knitr","rlist","dplyr","stringr"
