@@ -3,8 +3,7 @@ WHOPH packages is based on The Global Physical Activity Questionnaire which was 
 activity participation in three settings (or domains) as well as sedentary behaviour, comprising 16 questions (P1-P16). The domains are:
 • Activity at work
 • Travel to and from places
-• Recreational activities    
-WHOPH working only on R 32bit and has 5 dependecies listed in the DESCRIPTION file : survey, RODBC, knitr, dplyr, stringr
+• Recreational activities  WHOPH working only on R 32bit and has 5 dependecies listed in the DESCRIPTION file : survey, RODBC, knitr, dplyr, stringr
 
 WHOPH consists of three main functions:
 1. WHOPH_Data(Dir,Data,id,weights,strata) # To prepare the data
