@@ -17,7 +17,7 @@ require(WHOPH)
 ```
 WHOPH_Data(Dir,Data,id,weights,strata) # To prepare the dataset
 ```
-* [Arguments]
+* Arguments
     a. Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
     b. Data is the names of the dataset. for example: "ARM.STEPS.mdb"\
     c. id is an argument in "svydesign" package. for example: id="PSU"\
