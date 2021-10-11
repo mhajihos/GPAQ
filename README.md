@@ -25,7 +25,7 @@ WHOPH_Data(Dir,Data,id,weights,strata) # To prepare the dataset
     strata is an argument in "svydesign" package. for example: strata="Stratum"
 
 * Examples\
-     WHOPH_Data(Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb",id= "PSU",weights= "WStep1",strata= "Stratum")
+     WHOPH_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb",id= "PSU",weights= "WStep1",strata= "Stratum")
 
 ## As_svy_mean
 ```
@@ -38,19 +38,13 @@ As_svy_mean(Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any 
         Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values. 
 
 * Examples
-            As_svy_mean( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean( ~Meet, ~UrbanRural,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean( ~Meet, ~sex,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean( ~Meet, ~UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean( ~Meet, ~age4y+UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean( ~Meet,Design= data) # data is the output of WHOPH_Data function.
-
+            As_svy_mean ( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function\
+            As_svy_mean ( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function\
+            As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
+            As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function./
+Fro Median:
             As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)\
-            As_svy_mean( ~Ptotalday ,~UrbanRural,Design= data,Median= TRUE)\
-            As_svy_mean( ~Ptotalday, ~sex,Design= data,Median= TRUE)\
             As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)\
-            As_svy_mean( ~Ptotalday ,~UrbanRural+sex,Design= data,Median= TRUE)\
             As_svy_mean( ~Ptotalday, ~age4y+UrbanRural+sex,Design= data,Median= TRUE)\
             As_svy_mean( ~Ptotalday,Design= data,Median= TRUE).
         
