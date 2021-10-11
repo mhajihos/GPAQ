@@ -19,7 +19,7 @@ WHOPH_Data (Dir,Data) # To prepare the dataset
 ```
 * Arguments\
     Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
-    Data is the names of the dataset. for example: "ARM.STEPS.mdb"\
+    Data is the names of the dataset. for example: "ARM.STEPS.mdb"
 * Outputs\
     Output is an object of class "survey.design2" and "survey.design" 
 * Examples\
@@ -33,9 +33,9 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
         Outcome is the outcome of interest. for example: Meet wich shows if the WHO recommendation for physical activity was met or not.\
         Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.\
         Design is the output object of WHOPH_Data function.\
-        Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values.\
+        Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values.
 * Outputs\
-    Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95% confidence interval for the average or 25% and 75% percentiles for the median.\
+    Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95% confidence interval for the average or 25% and 75% percentiles for the median.
 * Examples for mean\
             As_svy_mean ( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function\
