@@ -3,9 +3,9 @@ WHOPH packages is based on The Global Physical Activity Questionnaire which was 
 • Activity at work\
 • Travel to and from places\
 • Recreational activities\
-WHOPH working only on R 32bit and has 5 dependecies listed in the DESCRIPTION file : survey, RODBC, knitr, dplyr, stringr.\
+WHOPH working only on R 32bit and has 5 dependecies listed in the DESCRIPTION file : survey, RODBC, knitr, dplyr, stringr.
 
-WHOPH consists of three main functions:\
+WHOPH consists of three main functions:
 1. WHOPH_Data(Dir,Data,id,weights,strata) # To prepare the data\
     a. Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
     b. Data is the names of the dataset. for example: "ARM.STEPS.mdb"\
@@ -13,7 +13,7 @@ WHOPH consists of three main functions:\
     d. weights is an argument in "svydesign" package. for example: weights="WStep1"\
     e. strata is an argument in "svydesign" package. for example: strata="Stratum"\
 An example for WHOPH_Data is:\
-      WHOPH_Data(Dir="C:\\Users\\WHOData",Data="ARM.STEPS.mdb",id="PSU",weights="WStep1",strata="Stratum")\
+      WHOPH_Data(Dir="C:\\Users\\WHOData",Data="ARM.STEPS.mdb",id="PSU",weights="WStep1",strata="Stratum")
       
 2. As_svy_mean(Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any combination of factors
     a. Outcome is the outcome of interest. for example: Meet wich shows if the WHO recommendation for physical activity was met or not.
