@@ -17,13 +17,14 @@ require(WHOPH)
 ```
 WHOPH_Data(Dir,Data,id,weights,strata) # To prepare the dataset
 ```
-
+* [Arguments]
     a. Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
     b. Data is the names of the dataset. for example: "ARM.STEPS.mdb"\
     c. id is an argument in "svydesign" package. for example: id="PSU"\
     d. weights is an argument in "svydesign" package. for example: weights="WStep1"\
     e. strata is an argument in "svydesign" package. for example: strata="Stratum"
-    
+
+* [Example]
 An example for WHOPH_Data function is:\
      a. WHOPH_Data(Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb",id= "PSU",weights= "WStep1",strata= "Stratum")
 
@@ -31,13 +32,14 @@ An example for WHOPH_Data function is:\
 ```
 As_svy_mean(Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any combination of factors
 ```
-
+* [Arguments]
     a. Outcome is the outcome of interest. for example: Meet wich shows if the WHO recommendation for physical activity was met or not.\
     b. Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables.\
        Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.\
     c. Design is the output object of WHOPH_Data function.\
     d. Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values. 
-    
+
+* [Example]   
 Some examples for As_svy_mean function are:\
         a. As_svy_mean( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function\
         b. As_svy_mean( ~Meet, ~UrbanRural,Design= data) # data is the output of WHOPH_Data function\
@@ -45,8 +47,7 @@ Some examples for As_svy_mean function are:\
         d. As_svy_mean( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function\
         e. As_svy_mean( ~Meet, ~UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
         f. As_svy_mean( ~Meet, ~age4y+UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
-        g. As_svy_mean( ~Meet,Design= data) # data is the output of WHOPH_Data function.
-
+        g. As_svy_mean( ~Meet,Design= data) # data is the output of WHOPH_Data function.\
 Some examples for median with As_svy_mean function are:\
         a. As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)\
         b. As_svy_mean( ~Ptotalday ,~UrbanRural,Design= data,Median= TRUE)\
@@ -61,12 +62,13 @@ Some examples for median with As_svy_mean function are:\
 ```
 PtotalCat_svy_mean(Outcome,Group=NULL,Design) # For mean of Total physical activity categories for any combination of factors
 ```
-
+* [Arguments]
     a. Outcome is the outcome of interest. PtotalCat is the outcome of interest with three levels "Low", "Moderate", and "High"\
     b. Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables.\
        Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.\
     c. Design is the output object of WHOPH_Data function.
-    
+
+* [Example]
  Example for PtotalCat_svy_mean function are:\
         a. PtotalCat_svy_mean( ~PtotalCat, ~age4y,Design= data)\
         b. PtotalCat_svy_mean( ~PtotalCat, ~UrbanRural,Design= data)\
