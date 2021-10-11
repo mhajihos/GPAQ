@@ -68,6 +68,7 @@ PtotalCat_svy_mean (Outcome,Group=NULL,Design) # For mean of Total physical acti
             PtotalCat_svy_mean( ~PtotalCat,Design= data).
             
 ## Useful Links
+[WHO European Office for the Prevention and Control of NCDs (NCD Office)](https://www.euro.who.int/en/health-topics/noncommunicable-diseases/pages/who-european-office-for-the-prevention-and-control-of-noncommunicable-diseases-ncd-office)\
 [WHO STEPS Program](https://www.who.int/teams/noncommunicable-diseases/surveillance/systems-tools/steps)\
 [WHO Physical Activity Surveillance](https://www.who.int/teams/noncommunicable-diseases/surveillance/systems-tools/physical-activity-surveillance)
 
