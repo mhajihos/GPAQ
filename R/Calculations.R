@@ -11,7 +11,7 @@ Estimation=round(S[[1]],4)[1]
 CI=paste0(round(confint(S)[1],4),"-",
 			round(confint(S)[2],4))
 Res=data.frame(Category,Estimation,CI)
-names(Res)[c(2,3)]=c(Category,"95%CI")
+names(Res)[c(2,3)]=c(Category,"25%le-75%le")
 
 }else if(Median & !is.null(Group))
 	{
@@ -23,7 +23,7 @@ Estimation=round(S[,which(sapply(S, is.numeric)==TRUE)[1]],4)
 CI=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[1]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[1]],4))
 Res=data.frame(Category,Estimation,CI)
-names(Res)[c(2,3)]=c(colnames(S)[2],"95%CI")
+names(Res)[c(2,3)]=c(colnames(S)[2],"25%le-75%le")
 
 }else if(!Median & is.null(Group)) 
 	{
@@ -55,7 +55,7 @@ return(Res)
 
 
 #PtotalCat
-PtotalCat_svy_mean=function(Outcome,Group=NULL,Design,Median=FALSE)
+PtotalCat_svy_mean=function(Outcome,Group=NULL,Design)
 {
 	 if(is.null(Group)) 
 	{
