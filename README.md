@@ -15,7 +15,7 @@ require(WHOPH)
 
 ## WHOPH_Data
 ```
-WHOPH_Data(Dir,Data,id,weights,strata) # To prepare the dataset
+WHOPH_Data (Dir,Data,id,weights,strata) # To prepare the dataset
 ```
 * Arguments\
     Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
@@ -29,7 +29,7 @@ WHOPH_Data(Dir,Data,id,weights,strata) # To prepare the dataset
 
 ## As_svy_mean
 ```
-As_svy_mean(Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any combination of factors
+As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any combination of factors
 ```
 * Arguments\
         Outcome is the outcome of interest. for example: Meet wich shows if the WHO recommendation for physical activity was met or not.\
@@ -41,7 +41,7 @@ As_svy_mean(Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any 
             As_svy_mean ( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function./
+            As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function.\
 Fro Median:
             As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)\
             As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)\
@@ -51,7 +51,7 @@ Fro Median:
 
 ## PtotalCat_svy_mean
 ```
-PtotalCat_svy_mean(Outcome,Group=NULL,Design) # For mean of Total physical activity categories for any combination of factors
+PtotalCat_svy_mean (Outcome,Group=NULL,Design) # For mean of Total physical activity categories for any combination of factors
 ```
 * Arguments\
         Outcome is the outcome of interest. PtotalCat is the outcome of interest with three levels "Low", "Moderate", and "High"\
