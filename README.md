@@ -40,7 +40,7 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
             As_svy_mean ( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
-            As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function.\
+            As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function.
 * Examples for Median\
             As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)\
             As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)\
@@ -55,9 +55,9 @@ PtotalCat_svy_mean (Outcome,Group=NULL,Design) # For mean of Total physical acti
 * Arguments\
         Outcome is the outcome of interest. PtotalCat is the outcome of interest with three levels "Low", "Moderate", and "High"\
         Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.\
-        Design is the output object of WHOPH_Data function.\
+        Design is the output object of WHOPH_Data function.
 * Outputs\
-    Output is a matrix with number of rows equal to the combination number of categories for Group arguments and seven columns. The first column indicate the group of interest, columns two to seven are the average and 95% confidence intervals for Low, Moderate, and High categories for total physical activity, respectively.\
+    Output is a matrix with number of rows equal to the combination number of categories for Group arguments and seven columns. The first column indicate the group of interest, columns two to seven are the average and 95% confidence intervals for Low, Moderate, and High categories for total physical activity, respectively.
 * Examples\
             PtotalCat_svy_mean( ~PtotalCat, ~age4y,Design= data)\
             PtotalCat_svy_mean( ~PtotalCat, ~UrbanRural,Design= data)\
