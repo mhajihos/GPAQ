@@ -37,12 +37,12 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
         Design is the output object of WHOPH_Data function.\
         Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values. 
 
-* Examples\
+* Examples for mean\
             As_svy_mean ( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function\
             As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function.\
-For Median\
+* Examples for Median\
             As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)\
             As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)\
             As_svy_mean( ~Ptotalday, ~age4y+UrbanRural+sex,Design= data,Median= TRUE)\
