@@ -81,9 +81,10 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
         Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values.
 * Outputs\
     Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95% confidence interval for the average or 25% and 75% percentiles for the median.
-* Examples for mean\
+
 
 ```
+## Examples for Mean
 As_svy_mean ( ~Meet, ~age4y,Design= data)
         Category          Meet1) doesn't meet recs         95%CI
 1       (18,29]                   0.0991             0.0748-0.1233
@@ -198,14 +199,46 @@ PtotalCat_svy_mean (Outcome,Group=NULL,Design) # For mean of Total physical acti
         Design is the output object of WHOPH_Data function.
 * Outputs\
     Output is a matrix with number of rows equal to the combination number of categories for Group arguments and seven columns. The first column indicate the group of interest, columns two to seven are the average and 95% confidence intervals for Low, Moderate, and High categories for total physical activity, respectively.
-* Examples\
-            PtotalCat_svy_mean( ~PtotalCat, ~age4y,Design= data)\
-            PtotalCat_svy_mean( ~PtotalCat, ~UrbanRural,Design= data)\
-            PtotalCat_svy_mean( ~PtotalCat ,~sex,Design= data)\
-            PtotalCat_svy_mean( ~PtotalCat, ~age4y+sex,Design= data)\
-            PtotalCat_svy_mean( ~PtotalCat, ~UrbanRural+sex,Design= data)\
-            PtotalCat_svy_mean( ~PtotalCat, ~age4y+UrbanRural+sex,Design= data)\
-            PtotalCat_svy_mean( ~PtotalCat,Design= data).
+* Examples
+```
+PtotalCat_svy_mean( ~PtotalCat, ~age4y,Design= data)
+
+            Category            PtotalCat1..Low.Level                       95%CI_Low             PtotalCat2..Moderate.level
+1           (18,29]                0.1323                               0.1042-0.1603                     0.2566
+2           (29,44]                0.1553                               0.1337-0.177                      0.2665
+3           (44,59]                0.1482                               0.1302-0.1663                     0.2566
+4           (59,69]                0.2842                               0.2517-0.3167                     0.3876
+ 
+        95%CI_Moderate          PtotalCat3..High.level                      95%CI_High
+1       0.2198-0.2935                 0.6111                             0.5697-0.6526
+2       0.2394-0.2937                 0.5781                             0.548-0.6082
+3       0.2338-0.2794                 0.5951                             0.5697-0.6206
+4       0.3533-0.4218                 0.3282                             0.2951-0.3614
+```
+```
+PtotalCat_svy_mean( ~PtotalCat, ~UrbanRural,Design= data)
+
+```
+```
+PtotalCat_svy_mean( ~PtotalCat ,~sex,Design= data)
+
+```
+```
+PtotalCat_svy_mean( ~PtotalCat, ~age4y+sex,Design= data)
+
+```
+```
+PtotalCat_svy_mean( ~PtotalCat, ~UrbanRural+sex,Design= data)
+
+```
+```
+PtotalCat_svy_mean( ~PtotalCat, ~age4y+UrbanRural+sex,Design= data)
+
+```
+```
+PtotalCat_svy_mean( ~PtotalCat,Design= data)
+
+```
             
 ## Useful Links
 [WHO European Office for the Prevention and Control of NCDs (NCD Office)](https://www.euro.who.int/en/health-topics/noncommunicable-diseases/pages/who-european-office-for-the-prevention-and-control-of-noncommunicable-diseases-ncd-office)\
