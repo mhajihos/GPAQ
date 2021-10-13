@@ -23,7 +23,7 @@ Estimation=round(S[,which(sapply(S, is.numeric)==TRUE)[1]],4)
 CI=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[1]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[1]],4))
 Res=data.frame(Category,Estimation,CI)
-names(Res)[c(2,3)]=c(colnames(S)[2],"25%le-75%le")
+names(Res)[c(2,3)]=c(colnames(S)[which(sapply(S, is.numeric)==TRUE)][1],"25%le-75%le")
 
 }else if(!Median & is.null(Group)) 
 	{
@@ -47,7 +47,7 @@ Estimation=round(S[,which(sapply(S, is.numeric)==TRUE)[1]],4)
 CI=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[1]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[1]],4))
 Res=data.frame(Category,Estimation,CI)
-names(Res)[c(2,3)]=c(colnames(S)[2],"95%CI")
+names(Res)[c(2,3)]=c(colnames(S)[which(sapply(S, is.numeric)==TRUE)][1],"95%CI")
 }
 
 return(Res)
