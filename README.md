@@ -21,11 +21,11 @@ Read_Data(Dir,Data)# To read the dataset
     Data is the name of the dataset. for example: "ARM.STEPS.mdb"
 * Outputs\
     Output is an object of class "data.frame"
-* Examples\
-    dt= Read_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb")\
-    names(dt)
+* Examples
+```
+dt= Read_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb")\
+names(dt)
 
-``` 
  [1] "id"                              "i4"                             
  [3] "end"                             "i7"                             
  [5] "deviceid"                        "minage"                         
@@ -63,10 +63,11 @@ WHOPH_Data (Data,id,weights,strata) # To prepare the dataset
     strata is an argument of function svydesign
 * Outputs\
     Output is an object of class "survey.design2" and "survey.design" 
-* Examples\
-     data= WHOPH_Data (Data= dt,id= psu,weights= wstep1,strata= stratum)\
-     class (data)
+* Examples
 ```
+data= WHOPH_Data (Data= dt,id= psu,weights= wstep1,strata= stratum)\
+class (data)
+
 [1] "survey.design2" "survey.design" 
 ```
 
