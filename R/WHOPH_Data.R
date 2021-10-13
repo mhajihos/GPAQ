@@ -1,4 +1,4 @@
-WHOPH_Data=function(Dir,Data,id,weights,strata)
+WHOPH_Data=function(Data,id,weights,strata)
 {
 
 df=DC(Data)
