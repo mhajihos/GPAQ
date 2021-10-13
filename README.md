@@ -14,7 +14,7 @@ require(WHOPH)
 ```
 ## Read_Data
 ```
-Read_Data(Dir,Data)
+Read_Data(Dir,Data)# To read the dataset
 ```
 * Arguments\
     Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
