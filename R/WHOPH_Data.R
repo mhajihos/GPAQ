@@ -12,9 +12,9 @@ df=Ptotal(df)
 
 df=subset(df, df$cln==1)
 df_valid=subset(df, df$valid==1)
-
+attach(df_valid)
 #WStep1
-STEPSC=svydesign(~id, ~weights, ~strata, data=df_valid, nest=TRUE)
+STEPSC=svydesign(id=~id, weights=~weights,strata=~strata, data=df_valid, nest=TRUE)
 
 
 return(STEPSC)
