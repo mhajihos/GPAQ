@@ -22,7 +22,7 @@ Read_Data(Dir,Data)
 * Outputs\
     Output is an object of class "data.frame"
 * Examples\
-    dt= Read_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb")
+    dt= Read_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb")\
     names(dt)
 
 ``` 
