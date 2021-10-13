@@ -1,6 +1,12 @@
 
 DP=function(Dir,Data)
 {
+suppressMessages(suppressWarnings(library(survey)))
+suppressMessages(suppressWarnings(library(RODBC)))
+suppressMessages(suppressWarnings(library(knitr)))
+suppressMessages(suppressWarnings(library(rlist)))
+suppressMessages(suppressWarnings(library(dplyr)))
+suppressMessages(suppressWarnings(library(stringr)))	
 	
 setwd(Dir)
 #Reading a dataset and data preparation
