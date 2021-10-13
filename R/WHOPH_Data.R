@@ -1,9 +1,7 @@
 WHOPH_Data=function(Dir,Data,id,weights,strata)
 {
 
-
-df=DP(Dir,Data)
-df=DC(df)
+df=DC(Data)
 df=Pcomposition(df)
 df=Pnoactivitybyset(df)
 df=Pnotmeetingrecs(df)
