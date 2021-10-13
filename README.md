@@ -57,11 +57,14 @@ Read_Data(Dir,Data)
 WHOPH_Data (Data,id,weights,strata) # To prepare the dataset
 ```
 * Arguments\
-    Data is the output object of Read_Data function
+    Data is the output object of Read_Data function\
+    id is an argument of function svydesign\
+    weights is an argument of function svydesign\
+    strata is an argument of function svydesign
 * Outputs\
     Output is an object of class "survey.design2" and "survey.design" 
-* Examples
-     data= WHOPH_Data (Data= dt,id= psu,weights= wstep1,strata= stratum)
+* Examples\
+     data= WHOPH_Data (Data= dt,id= psu,weights= wstep1,strata= stratum)\
      class (data)
 ```
 [1] "survey.design2" "survey.design" 
