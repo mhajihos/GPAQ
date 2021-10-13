@@ -82,18 +82,20 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
 * Outputs\
     Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95% confidence interval for the average or 25% and 75% percentiles for the median.
 * Examples for mean\
-            As_svy_mean ( ~Meet, ~age4y,Design= data) # data is the output of WHOPH_Data function
+
 ```
-        Category         Meet1..doesn.t.meet.recs         95%CI
+As_svy_mean ( ~Meet, ~age4y,Design= data)
+        Category          Meet1) doesn't meet recs         95%CI
 1       (18,29]                   0.0991             0.0748-0.1233
 2       (29,44]                   0.1143             0.0954-0.1332
 3       (44,59]                   0.1233             0.1066-0.1401
 4       (59,69]                   0.2341             0.2035-0.2647
 ```
 
-            As_svy_mean ( ~Meet, ~age4y+sex,Design= data) # data is the output of WHOPH_Data function
+            
 ```
-        Category                sex                     95%CI
+As_svy_mean ( ~Meet, ~age4y+sex,Design= data) 
+        Category       Meet1) doesn't meet recs         95%CI
 1   (18,29].Men             0.0800                  0.0498-0.1102
 2   (29,44].Men             0.1051                  0.0769-0.1333
 3   (44,59].Men             0.1315                  0.1058-0.1573
@@ -104,35 +106,38 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
 8   (59,69].Women           0.2084                  0.1727-0.2441
 
 ```
-            As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data) # data is the output of WHOPH_Data function
+            
 ```
-              Category          UrbanRural         95%CI
-1       (18,29].rural.Men       0.0761          0.0342-0.118
-2       (29,44].rural.Men       0.0903          0.0526-0.128
-3       (44,59].rural.Men       0.1189          0.087-0.1508
-4       (59,69].rural.Men       0.2054          0.1404-0.2705
-5       (18,29].urban.Men       0.0836          0.0403-0.1268
-6       (29,44].urban.Men       0.1159          0.0758-0.156
-7       (44,59].urban.Men       0.1456          0.1045-0.1867
-8       (59,69].urban.Men       0.3270          0.2472-0.4068
-9       (18,29].rural.Women     0.1369          0.0763-0.1975
-10      (29,44].rural.Women     0.1114          0.0742-0.1487
-11      (44,59].rural.Women     0.1119          0.0829-0.1409
-12      (59,69].rural.Women     0.2350          0.1807-0.2893
-13      (18,29].urban.Women     0.1020          0.0559-0.1481
-14      (29,44].urban.Women     0.1312          0.0975-0.1649
-15      (44,59].urban.Women     0.1201          0.0878-0.1524
-16      (59,69].urban.Women     0.1922          0.1452-0.2393
+As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data)
+              Category          Meet1) doesn't meet recs            95%CI
+1       (18,29].rural.Men               0.0761                  0.0342-0.118
+2       (29,44].rural.Men               0.0903                  0.0526-0.128
+3       (44,59].rural.Men               0.1189                  0.087-0.1508
+4       (59,69].rural.Men               0.2054                  0.1404-0.2705
+5       (18,29].urban.Men               0.0836                  0.0403-0.1268
+6       (29,44].urban.Men               0.1159                  0.0758-0.156
+7       (44,59].urban.Men               0.1456                  0.1045-0.1867
+8       (59,69].urban.Men               0.3270                  0.2472-0.4068
+9       (18,29].rural.Women             0.1369                  0.0763-0.1975
+10      (29,44].rural.Women             0.1114                  0.0742-0.1487
+11      (44,59].rural.Women             0.1119                  0.0829-0.1409
+12      (59,69].rural.Women             0.2350                  0.1807-0.2893
+13      (18,29].urban.Women             0.1020                  0.0559-0.1481
+14      (29,44].urban.Women             0.1312                  0.0975-0.1649
+15      (44,59].urban.Women             0.1201                  0.0878-0.1524
+16      (59,69].urban.Women             0.1922                  0.1452-0.2393
 
 ```
-            As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function
+            
 ```
+As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function
                   Category                  Meet1) doesn't meet recs         95%CI
 1       Meet1) doesn't meet recs                   0.1315               0.1208-0.1422
 ```
-* Examples for Median\
-            As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)
+
 ```
+## Examples for Median
+As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)
             Category        Ptotalday           25%le-75%le
 1           (18,29]         145.7143            124.2857-180
 2           (29,44]         182.8571            158.5714-214.2857
@@ -140,21 +145,23 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
 4           (59,69]         60.0000             60-80
 
 ```
-            As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)
+            
 ```
-                Category      sex               25%le-75%le
-1           (18,29].Men     211.4286        171.4286-244.2857
-2           (29,44].Men     257.1429        231.4286-287.1429
-3           (44,59].Men     240.0000        214.2857-265.7143
-4           (59,69].Men     60.0000             60-90
-5           (18,29].Women   120.0000        111.4286-150
-6           (29,44].Women   120.0000           120-150
-7           (44,59].Women   128.5714           120-160
-8           (59,69].Women   60.0000             60-80
+As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)
+                Category         Ptotalday         25%le-75%le
+1           (18,29].Men          211.4286        171.4286-244.2857
+2           (29,44].Men          257.1429        231.4286-287.1429
+3           (44,59].Men          240.0000        214.2857-265.7143
+4           (59,69].Men          60.0000             60-90
+5           (18,29].Women        120.0000        111.4286-150
+6           (29,44].Women        120.0000           120-150
+7           (44,59].Women        128.5714           120-160
+8           (59,69].Women        60.0000             60-80
 ```
-            As_svy_mean( ~Ptotalday, ~age4y+UrbanRural+sex,Design= data,Median= TRUE)
+            
 ```
-              Category              UrbanRural          25%le-75%le
+As_svy_mean( ~Ptotalday, ~age4y+UrbanRural+sex,Design= data,Median= TRUE)
+              Category              Ptotalday          25%le-75%le
 1          (18,29].rural.Men        261.4286            218.5714-300
 2          (29,44].rural.Men        301.4286            274.2857-351.4286
 3          (44,59].rural.Men        278.5714            244.2857-308.5714
@@ -173,8 +180,9 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
 16         (59,69].urban.Women      60.0000             60-77.1429
 
 ```
-            As_svy_mean( ~Ptotalday,Design= data,Median= TRUE)
+            
 ```
+As_svy_mean( ~Ptotalday,Design= data,Median= TRUE)
             Category        Ptotalday       25%le-75%le
 1           Ptotalday       137.1429        128-150
 ```
