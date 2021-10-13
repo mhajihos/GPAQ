@@ -12,18 +12,60 @@ WHOPH is working only on R 32bit and has 5 dependencies listed in the DESCRIPTIO
 devtools::install_github("mhajihos/WHOPH")
 require(WHOPH)
 ```
-
-## WHOPH_Data
+## Read_Data
 ```
-WHOPH_Data (Dir,Data) # To prepare the dataset
+Read_Data(Dir,Data)
 ```
 * Arguments\
     Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
     Data is the names of the dataset. for example: "ARM.STEPS.mdb"
 * Outputs\
-    Output is an object of class "survey.design2" and "survey.design" 
+    Output is an object of class "data.frame"
 * Examples\
-     WHOPH_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb",id= "PSU",weights= "WStep1",strata= "Stratum")
+    dt= Read_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb")
+    names(dt)
+
+``` 
+ [1] "id"                              "i4"                             
+ [3] "end"                             "i7"                             
+ [5] "deviceid"                        "minage"                         
+ [7] "subscriberid"                    "maxage"                         
+ [9] "pid"                             "hh_size"                        
+ [11] "pid_note"                        "hh_size_note"                   
+ [13] "i1a"                             "i1b"                            
+ [15] "i1other"                         "i3"                             
+ [17] "i5"                              "c1"                             
+ [19] "dobnote"                         "c3"                             
+ [21] "c4"                              "c5"                             
+ [23] "c7"                              "c8"                             
+ [25] "note1"                           "smoked_tb_showcard"             
+ [27] "t1"                              "t2"                             
+ [29] "t3"                              "t4"                             
+ [31] "t4type"                          "t5a"                            
+ [33] "t5aw"                            "t5b"                            
+ [35] "t5bw"                            "t5c"                            
+ [37] "t5cw"                            "t5d"                            
+ [39] "t5dw"                            "t5e"                            
+ [41] "t5ew"                            "t5f"                            
+ [43] "t5fw"                            "t5other"                        
+ [45] "t6"                              "t7"                             
+ [47] "t8"                              "t10"       
+```
+
+## WHOPH_Data
+```
+WHOPH_Data (Data,id,weights,strata) # To prepare the dataset
+```
+* Arguments\
+    Data is the output object of Read_Data function
+* Outputs\
+    Output is an object of class "survey.design2" and "survey.design" 
+* Examples
+     data= WHOPH_Data (Data= dt,id= psu,weights= wstep1,strata= stratum)
+     class (data)
+```
+[1] "survey.design2" "survey.design" 
+```
 
 ## As_svy_mean
 ```
