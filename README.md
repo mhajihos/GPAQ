@@ -18,12 +18,12 @@ Read_Data(Dir,Data)# To read the dataset
 ```
 * Arguments\
     Dir is the directory with the STEPS data in ".mdb" ACCESS format. for example: "C:\\Users\\WHOData"\
-    Data is the name of the dataset. for example: "ARM.STEPS.mdb"
+    Data is the name of the dataset. for example: "BLR.STEPS.mdb"
 * Outputs\
     Output is an object of class "data.frame"
 * Examples
 ```
-dt= Read_Data (Dir= "C:\\Users\\WHOData",Data= "ARM.STEPS.mdb")\
+dt= Read_Data (Dir= "C:\\Users\\WHOData",Data= "BLR.STEPS.mdb")
 names(dt)
 
  [1] "id"                              "i4"                             
@@ -65,7 +65,7 @@ WHOPH_Data (Data,id,weights,strata) # To prepare the dataset
     Output is an object of class "survey.design2" and "survey.design" 
 * Examples
 ```
-data= WHOPH_Data (Data= dt,id= psu,weights= wstep1,strata= stratum)\
+data= WHOPH_Data (Data= dt,id= psu,weights= wstep1,strata= stratum)
 class (data)
 
 [1] "survey.design2" "survey.design" 
