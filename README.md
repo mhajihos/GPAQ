@@ -86,6 +86,7 @@ As_svy_mean (Outcome,Group=NULL,Design,Median=FALSE)# For mean and median of any
 ```
 ## Examples for Mean
 As_svy_mean ( ~Meet, ~age4y,Design= data)
+
         Category          Meet1) doesn't meet recs         95%CI
 1       (18,29]                   0.0991             0.0748-0.1233
 2       (29,44]                   0.1143             0.0954-0.1332
@@ -96,6 +97,7 @@ As_svy_mean ( ~Meet, ~age4y,Design= data)
             
 ```
 As_svy_mean ( ~Meet, ~age4y+sex,Design= data) 
+
         Category       Meet1) doesn't meet recs         95%CI
 1   (18,29].Men             0.0800                  0.0498-0.1102
 2   (29,44].Men             0.1051                  0.0769-0.1333
@@ -110,6 +112,7 @@ As_svy_mean ( ~Meet, ~age4y+sex,Design= data)
             
 ```
 As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data)
+
               Category          Meet1) doesn't meet recs            95%CI
 1       (18,29].rural.Men               0.0761                  0.0342-0.118
 2       (29,44].rural.Men               0.0903                  0.0526-0.128
@@ -132,6 +135,7 @@ As_svy_mean ( ~Meet, ~age4y+UrbanRural+sex,Design= data)
             
 ```
 As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function
+
                   Category                  Meet1) doesn't meet recs         95%CI
 1       Meet1) doesn't meet recs                   0.1315               0.1208-0.1422
 ```
@@ -139,6 +143,7 @@ As_svy_mean ( ~Meet,Design= data) # data is the output of WHOPH_Data function
 ```
 ## Examples for Median
 As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)
+
             Category        Ptotalday           25%le-75%le
 1           (18,29]         145.7143            124.2857-180
 2           (29,44]         182.8571            158.5714-214.2857
@@ -149,6 +154,7 @@ As_svy_mean( ~Ptotalday, ~age4y,Design= data,Median= TRUE)
             
 ```
 As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)
+
                 Category         Ptotalday         25%le-75%le
 1           (18,29].Men          211.4286        171.4286-244.2857
 2           (29,44].Men          257.1429        231.4286-287.1429
@@ -162,6 +168,7 @@ As_svy_mean( ~Ptotalday, ~age4y+sex,Design= data,Median= TRUE)
             
 ```
 As_svy_mean( ~Ptotalday, ~age4y+UrbanRural+sex,Design= data,Median= TRUE)
+
               Category              Ptotalday          25%le-75%le
 1          (18,29].rural.Men        261.4286            218.5714-300
 2          (29,44].rural.Men        301.4286            274.2857-351.4286
@@ -184,6 +191,7 @@ As_svy_mean( ~Ptotalday, ~age4y+UrbanRural+sex,Design= data,Median= TRUE)
             
 ```
 As_svy_mean( ~Ptotalday,Design= data,Median= TRUE)
+
             Category        Ptotalday       25%le-75%le
 1           Ptotalday       137.1429        128-150
 ```
