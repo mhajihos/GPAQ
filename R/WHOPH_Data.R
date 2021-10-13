@@ -14,7 +14,7 @@ df=subset(df, df$cln==1)
 df_valid<-subset(df, df$valid==1)
 
 #WStep1
-STEPSC<-svydesign(id=~id, weights=~weights, strata = ~strata, data=df_valid, nest=TRUE)
+STEPSC<-svydesign(id=id, weights=weights, strata = strata, data=df_valid, nest=TRUE)
 
 
 return(STEPSC)
