@@ -61,7 +61,7 @@ return(Res)
 PtotalCat_svy_mean=function(Outcome,Group=NULL,Data,id,weights,strata,CLN)
 {
 Data_subset=subset(Data,Data[,CLN]==1)
-Design=svydesign(id=psu, weights=wstep1, strata=stratum,data=Data_subset, nest=TRUE)
+Design=svydesign(id=id, weights=weights, strata=strata,data=Data_subset, nest=TRUE)
 
 	 if(is.null(Group)) 
 	{
@@ -78,7 +78,7 @@ names(Res)[c(2,3)]=c("PtotalCat","95%CI")
 
 }else if(!is.null(Group))
 	{
-S=svyby(~ptotalCat,~age4y,Design,svymean,vartype="ci",na.rm=TRUE)
+S=svyby(Outcome,Group,Design,svymean,vartype="ci",na.rm=TRUE)
 S=data.frame(S)
 
 Category=rownames(S)
