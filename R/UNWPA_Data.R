@@ -1,6 +1,9 @@
 UNWPA_Data=function(Data)
 {
-
+suppressMessages(suppressWarnings(library(survey)))
+suppressMessages(suppressWarnings(library(dplyr)))
+  
+  
 df=DC(Data)
 df=Pcomposition(df)
 df=Pnoactivitybyset(df)
