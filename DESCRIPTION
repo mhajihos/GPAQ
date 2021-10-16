@@ -10,7 +10,4 @@ Encoding: UTF-8
 LazyData: TRUE
 Imports:
     survey,
-    RODBC,
-    knitr,
     dplyr,
-    stringr
