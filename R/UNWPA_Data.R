@@ -13,5 +13,6 @@ df=Psedentary(df)
 df=Psetspecific(df)
 df=Ptotal(df)
 
+df_valid=subset(df,df$valid==1)
 return(df)
 }
