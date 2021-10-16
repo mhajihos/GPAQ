@@ -16,5 +16,7 @@ data%>%
                              p13t15cln==1, 1, 2, missing = 2)) %>% 
   mutate(cln_composition = replace(cln_composition, is.na(p1) & is.na(p4) & is.na(p7) & 
                              is.na(p10) & is.na(p13), 2)) %>% 
-  mutate(cln_composition = replace(cln_composition, ptotal==0, 2))
+  mutate(cln_composition = replace(cln_composition, ptotal==0, 2))%>%
+  
+  return(data)
 }
