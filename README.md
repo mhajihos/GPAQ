@@ -4,7 +4,7 @@ WHOPH packages is based on The Global Physical Activity Questionnaire which was 
 • Activity at work\
 • Travel to and from places\
 • Recreational activities\
-WHOPH is working only on R 32bit and has 5 dependencies listed in the DESCRIPTION file : survey, RODBC, knitr, dplyr, stringr.
+WHOPH is working only on R 32bit and has 5 dependencies listed in the DESCRIPTION file : survey, dplyr.
 
 ## Installation
 ```
