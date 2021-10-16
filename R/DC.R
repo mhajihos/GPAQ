@@ -140,5 +140,7 @@ data %>%
   mutate(p16bmin = ifelse(p16b>=0 & p16b<=60, p16b, NA)) %>% 
   mutate(p16 = p16amin + p16bmin) %>% 
   # Cleans p16
-  mutate(p16cln = if_else(p16>=0 & p16<1441, 1, 2, missing = 2))
+  mutate(p16cln = if_else(p16>=0 & p16<1441, 1, 2, missing = 2)) %>%
+  
+  return(data)
 }
