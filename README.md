@@ -38,8 +38,8 @@ class (data)
 As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)# For mean and median of any combination of factors
 ```
 * Arguments\
-        Outcome is the outcome of interest. for example: Meet wich shows if the WHO recommendation for physical activity was met or not.\     
-        Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.\       
+        Outcome is the outcome of interest. for example: Meet wich shows if the WHO recommendation for physical activity was met or not.  
+        Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.    
         Data is the output object of UNWPA_Data function.\
         id, weights, starta are variables in the output of the UNWPA_Data function and arguments for svydesign function.\
         CLN depends on the analysis. There are six CLN variables in the ouput of the UNWPA_Data function.\
