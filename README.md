@@ -54,7 +54,7 @@ As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)# For me
         "cln_specific"\
             For the analysis of the outcome variable "pworkday" "ptravelday" "precday".\
         "cln_Ptotal"\
-            For the analysis of the outcome variable "ptotalday" "ptotalCat".\   
+            For the analysis of the outcome variable "ptotalday" "ptotalCat". 
         Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values.
 * Outputs\
     Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95% confidence interval for the average or 25% and 75% percentiles for the median.
