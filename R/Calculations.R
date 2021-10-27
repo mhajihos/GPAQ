@@ -53,7 +53,7 @@ CI=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[1]],4),"-",
 Res=data.frame(Category,Estimation,CI)
 names(Res)[c(2,3)]=c(colnames(S)[which(sapply(S, is.numeric)==TRUE)][1],"95%CI")
 }
-
+detach(Data_subset)
 return(Res)
 }
 
@@ -104,7 +104,7 @@ names(Res)[c(2,3,4,5,6,7)]=c(colnames(S)[which(substr(colnames(S),1,10)=="Ptotal
 				colnames(S)[which(substr(colnames(S),1,10)=="PtotalCat2")],"95%CI_Moderate",
 				colnames(S)[which(substr(colnames(S),1,10)=="PtotalCat3")],"95%CI_High")
 }
-
+detach(Data_subset)
 return(Res)
 }
 
