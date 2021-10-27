@@ -1,6 +1,7 @@
 As_svy_mean=function(Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)
 {
 Data_subset=subset(Data,Data[,CLN]==1)
+attach(Data_subset)
 Design=svydesign(id=id, weights=weights, strata=strata,data=Data_subset, nest=TRUE)
 
 	if(Median & is.null(Group))
@@ -61,6 +62,7 @@ return(Res)
 PtotalCat_svy_mean=function(Outcome,Group=NULL,Data,id,weights,strata,CLN)
 {
 Data_subset=subset(Data,Data[,CLN]==1)
+attach(Data_subset)
 Design=svydesign(id=id, weights=weights, strata=strata,data=Data_subset, nest=TRUE)
 
 	 if(is.null(Group)) 
