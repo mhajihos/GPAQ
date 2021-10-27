@@ -76,7 +76,7 @@ CI=paste0(round(confint(S)[,1],4),"-",
 			round(confint(S)[,2],4))
 
 Res=data.frame(Category,Estimation,CI)
-names(Res)[c(2,3)]=c("PtotalCat","95%CI")
+names(Res)[c(2,3)]=c("ptotalCat","95%CI")
 
 }else if(!is.null(Group))
 	{
@@ -100,9 +100,9 @@ CI3=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[3]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[3]],4))
 
 Res=data.frame(Category,Estimation1,CI1,Estimation2,CI2,Estimation3,CI3)
-names(Res)[c(2,3,4,5,6,7)]=c(colnames(S)[which(substr(colnames(S),1,10)=="PtotalCat1")],"95%CI_Low",
-				colnames(S)[which(substr(colnames(S),1,10)=="PtotalCat2")],"95%CI_Moderate",
-				colnames(S)[which(substr(colnames(S),1,10)=="PtotalCat3")],"95%CI_High")
+names(Res)[c(2,3,4,5,6,7)]=c(colnames(S)[which(substr(colnames(S),1,10)=="ptotalCat1")],"95%CI_Low",
+				colnames(S)[which(substr(colnames(S),1,10)=="ptotalCat2")],"95%CI_Moderate",
+				colnames(S)[which(substr(colnames(S),1,10)=="ptotalCat3")],"95%CI_High")
 }
 detach(Data_subset)
 return(Res)
