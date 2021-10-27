@@ -179,10 +179,10 @@ As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln
 PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN) # For mean of Total physical activity categories for any combination of factors
 ```
 * Arguments\
-        Outcome is the outcome of interest. PtotalCat is the outcome of interest with three levels "Low", "Moderate", and "High"\     
-        Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.\    
-        Data is the output object of UNWPA_Data function.\
-        id, weights, starta are variables in the output of the UNWPA_Data function and arguments for svydesign function.\
+        Outcome is the outcome of interest. PtotalCat is the outcome of interest with three levels "Low", "Moderate", and "High". 
+        Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.
+        Data is the output object of UNWPA_Data function.
+        id, weights, starta are variables in the output of the UNWPA_Data function and arguments for svydesign function.
         CLN is the "cln_Ptotal" for the analysis of the outcome variable "ptotalCat".
 * Outputs\
     Output is a matrix with number of rows equal to the combination number of categories for Group arguments and seven columns. The first column indicate the group of interest, columns two to seven are the average and 95% confidence intervals for Low, Moderate, and High categories for total physical activity, respectively.
