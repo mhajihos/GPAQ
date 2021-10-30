@@ -51,7 +51,7 @@ gpag (Data) # To prepare the unweighted dataset
     Output is an object of class "data.frame" including unweighted variables in the GPAQ questionnaire.
 * Examples
 ```
-data= UNWPA_Data (Data) 
+data= gpag (Data) 
 class (data)
 
 [1] "data.frame"
