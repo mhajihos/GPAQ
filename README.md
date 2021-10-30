@@ -14,12 +14,36 @@ require(WHOPH)
 ```
 ## Read_Data For Mac or Windows
 ```
-    
+ if(.Platform$OS.type == "unix") {
+
+  # MacOS
+
+  library(Hmisc) # needed to load mdb data in MacOS
+
+  data1 <- mdb.get("STEPS_blr_20.mdb", tables = "data1")
+
+  data2 <- mdb.get("STEPS_blr_20.mdb", tables = "data2")
+
+    } else {
+
+  # Windows
+
+  library(RODBC)
+
+  channel <- odbcConnectAccess("STEPS_blr_20.mdb")
+
+  data1 <- sqlFetch(channel,"data1", as.is=TRUE)
+
+  data2 <- sqlFetch(channel,"data2", as.is=TRUE)
+
+  odbcClose(channel)
+
+    }   
 ```
 
-## UNWPA_Data
+## gpag()
 ```
-UNWPA_Data (Data) # To prepare the unweighted dataset
+gpag (Data) # To prepare the unweighted dataset
 ```
 * Arguments\
     Data is the dataframe which contains all information from the GPAQ – Global Physical Activity questionnaire.
@@ -33,7 +57,7 @@ class (data)
 [1] "data.frame"
 ```
 
-## As_svy_mean
+## As_svy_mean()
 ```
 As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)# For mean and median of any combination of factors
 ```
@@ -174,7 +198,7 @@ As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln
 ```
         
 
-## PtotalCat_svy_mean
+## PtotalCat_svy_mean()
 ```
 PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN) # For mean of Total physical activity categories for any combination of factors
 ```
