@@ -54,13 +54,13 @@ Examples for Mean
    As_svy_mean(~meet,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
    As_svy_mean(~meet,~age4y+ur+sex,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
 
-   As_svy_mean(~meet,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
+   As_svy_mean(~meet,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
 
 Examples for Median
    As_svy_mean(~ptotalday,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
    As_svy_mean(~ptotalday,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
-   As_svy_mean(~ptotalday,~age4y+UrbanRural+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
+   As_svy_mean(~ptotalday,~age4y+ur+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
 
-   As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
+   As_svy_mean(~ptotalday,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
 
 }
