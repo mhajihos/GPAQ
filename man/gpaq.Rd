@@ -8,7 +8,7 @@ gpaq (Data)
 Prepare a dataset with unweighted variables and indiviual measures
 }
 \arguments{
-item{Data}  {A dataframe which contains all variables in the GPAQ – Global Physical Activity questionnaire}
+\item{Data}  {a 'dataframe' which contains all variables in the GPAQ – Global Physical Activity questionnaire.}
 }
 \value{
 An object of class 'data.frame'
