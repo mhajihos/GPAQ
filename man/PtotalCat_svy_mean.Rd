@@ -29,10 +29,10 @@ Output is a matrix with number of rows equal to the combination number of catego
 Prepare the output for Total Physical Activity Categories (Low, Medium, and High) explained in the GPAQ Analysis Guide at the population level
 }
 \examples{
-   PtotalCat_svy_mean(~ptotalCat,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_ptotal")
-   PtotalCat_svy_mean(~ptotalCat,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_ptotal")
-   PtotalCat_svy_mean(~ptotalCat,~age4y+ur+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_ptotal")
+   PtotalCat_svy_mean(~ptotalCat,~age4y,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+   PtotalCat_svy_mean(~ptotalCat,~age4y+sex,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+   PtotalCat_svy_mean(~ptotalCat,~age4y+ur+sex,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
 
-   PtotalCat_svy_mean(~ptotalCat,Data=Data,id=psu,	weights=wstep1,strata =stratum,CLN="cln_ptotal")
+   PtotalCat_svy_mean(~ptotalCat,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
 
 }
