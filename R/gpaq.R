@@ -1,4 +1,4 @@
-gpag=function(Data)
+gpaq=function(Data)
 {
 suppressMessages(suppressWarnings(library(survey)))
 suppressMessages(suppressWarnings(library(dplyr)))
