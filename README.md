@@ -171,7 +171,7 @@ As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln
 ## PtotalCat_svy_mean()
 ```
 PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN) # For mean of Total physical activity categories for any combination of factors
-```
+
 PtotalCat_svy_mean(~ptotalCat,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
     Category        ptotalCat1..Low.Level     95%CI_Low         ptotalCat2..Moderate.level
