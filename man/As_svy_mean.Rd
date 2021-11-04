@@ -26,11 +26,12 @@ As_svy_mean(
 
 \item{weights}{an argument in the "svydesign" function.}
 
+\item{starta}{an argument in the "svydesign" function.}
+
 \item{CLN}{depends on the analysis. There are five CLN variables in the output of the gpaq function. see details.}
 
 \item{Median}{a logical argument. The default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values.}
 
-\item{starta}{an argument in the "svydesign" function.}
 }
 \value{
 Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95% confidence interval for the average or 25% and 75% percentiles for the median.
@@ -46,14 +47,14 @@ Prepare the output for the weighted measures explained in the GPAQ Analysis Guid
 "cln_specific" is for the the analysis of the outcome variable "pworkday" "ptravelday" "precday".
 }
 \examples{
-## Examples for Mean
+Examples for Mean
    As_svy_mean(~meet,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
    As_svy_mean(~meet,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
    As_svy_mean(~meet,~age4y+ur+sex,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
 
    As_svy_mean(~meet,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
 
-## Examples for Median
+Examples for Median
    As_svy_mean(~ptotalday,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
    As_svy_mean(~ptotalday,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
    As_svy_mean(~ptotalday,~age4y+UrbanRural+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
