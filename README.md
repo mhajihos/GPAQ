@@ -44,13 +44,7 @@ require(GPAQ)
 ## gpag()
 ```
 gpag (Data) # To prepare the unweighted dataset
-```
-* Arguments\
-    Data is the dataframe which contains all information from the GPAQ – Global Physical Activity questionnaire.
-* Outputs\
-    Output is an object of class "data.frame" including unweighted variables in the GPAQ questionnaire.
-* Examples
-```
+
 data= gpag (Data) 
 class (data)
 
@@ -60,31 +54,7 @@ class (data)
 ## As_svy_mean()
 ```
 As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)# For mean and median of any combination of factors
-```
-* Arguments\
-        Outcome is the outcome of interest. for example: Meet wich shows if the WHO recommendation for physical activity was met or not.  
-        Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.    
-        Data is the output object of gpaq function.\
-        id, weights, starta are variables in the output of the gpaq function and arguments for svydesign function.\
-        CLN depends on the analysis. There are six CLN variables in the ouput of the UNWPA_Data function.\
-        "cln_composition"\
-            For the analysis of the outcome variables "percentwork" "percenttrans" "percentrec".\
-        "cln_meet"\
-            For the analysis of the outcome variable "meet".\
-        "cln_activity"\
-            For the analysis of the outcome variable "work" "trans" "rec".\
-        "cln_vigorous"\
-            For the analysis of the outcome variable "vig".\
-        "cln_specific"\
-            For the analysis of the outcome variable "pworkday" "ptravelday" "precday".\
-        "cln_Ptotal"\
-            For the analysis of the outcome variable "ptotalday" "ptotalCat". 
-        Median is a logical argument. Default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values.
-* Outputs\
-    Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95% confidence interval for the average or 25% and 75% percentiles for the median.
 
-
-```
 ## Examples for Mean
 As_svy_mean(~meet,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
 
@@ -201,16 +171,6 @@ As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln
 ## PtotalCat_svy_mean()
 ```
 PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN) # For mean of Total physical activity categories for any combination of factors
-```
-* Arguments\
-        Outcome is the outcome of interest. PtotalCat is the outcome of interest with three levels "Low", "Moderate", and "High".\
-        Group is the group of interest. The default is NULL for when only the outcome variable is in our interest. Group can be any combination of categorical variables. Examples for group can be: ~age4y, ~age4y+sex, ~age4y+UrbanRural+sex, etc.\
-        Data is the output object of gpag function.\
-        id, weights, starta are variables in the output of the gpaq function and arguments for svydesign function.\
-        CLN is the "cln_Ptotal" for the analysis of the outcome variable "ptotalCat".
-* Outputs\
-    Output is a matrix with number of rows equal to the combination number of categories for Group arguments and seven columns. The first column indicate the group of interest, columns two to seven are the average and 95% confidence intervals for Low, Moderate, and High categories for total physical activity, respectively.
-* Examples
 ```
 PtotalCat_svy_mean(~ptotalCat,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
