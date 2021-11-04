@@ -8,7 +8,7 @@ gpag (Data)
 Prepare a dataset with unweighted variables and indiviual measures
 }
 \Arguments{
-Data      Data is the dataframe which contains all information from the GPAQ – Global Physical Activity questionnaire
+\item{Data} {Data is the dataframe which contains all information from the GPAQ – Global Physical Activity questionnaire}
 }
 \Value{
 An object of class 'data.frame'
