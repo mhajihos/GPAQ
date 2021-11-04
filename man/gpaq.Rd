@@ -3,7 +3,7 @@
 \title{gpaq: Calculating Unweighted Variables for the Global Physical Activity Questionnaire (GPAQ)}
 \usage{
 
- gpaq(Data)
+#' gpaq(Data)
 
 }
 \description{
@@ -16,7 +16,7 @@ Prepare a dataset with unweighted variables and indiviual measures
 An object of class 'data.frame'
 }
 \details{
-\gpaq function generates unweighted variables mentioned in the GPAQ Analysis Guide at the individual level. Unweighted variables area as follow
+gpaq function generates unweighted variables mentioned in the GPAQ Analysis Guide at the individual level. Unweighted variables area as follow \cr
  \item{meet} {reports percentage of respondents who do not meet WHO recommendations on physical activity for health.}
  \item{ptotal}  {sum of all activities per week.}
  \ptotalday: sum of all activities per week divided by 7 to get avg. per day.
