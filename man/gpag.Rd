@@ -1,6 +1,6 @@
 \name{gpag}
 \alias{gpag}
-\title{gpag: Calculating Unweighted variables for the Global Physical Activity Questionnaire (GPAQ)}
+\title{gpag: Calculating Unweighted Variables for the Global Physical Activity Questionnaire (GPAQ)}
 \usage{
 gpag (Data)
 }
@@ -16,5 +16,5 @@ An object of class 'data.frame'
 \examples{
 data=gpag(my_data)
 class(data)
-  "data.frame"
+ "data.frame"
 }
