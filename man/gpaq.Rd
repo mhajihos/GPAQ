@@ -3,7 +3,7 @@
 \title{gpaq: Calculating Unweighted Variables for the Global Physical Activity Questionnaire (GPAQ)}
 \usage{
 
-#' gpaq(Data)
+gpaq(Data)
 
 }
 \description{
