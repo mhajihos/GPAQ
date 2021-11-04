@@ -7,10 +7,10 @@ gpaq (Data)
 \description{
 Prepare a dataset with unweighted variables and indiviual measures
 }
-\Arguments{
+\arguments{
 \item{Data} {Data is the dataframe which contains all information from the GPAQ – Global Physical Activity questionnaire}
 }
-\Value{
+\value{
 An object of class 'data.frame'
 }
 \examples{
