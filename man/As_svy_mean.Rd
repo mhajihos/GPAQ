@@ -2,7 +2,7 @@
 % Please edit documentation in R/As_svy_mean.R
 \name{As_svy_mean}
 \alias{As_svy_mean}
-\title{s_svy_mean: Calculating the Weighted Mean or Median of any Combination of the Factors for the Global Physical Activity Questionnaire (GPAQ)}
+\title{As_svy_mean: Calculating the Weighted Mean or Median of any Combination of the Factors for the Global Physical Activity Questionnaire (GPAQ)}
 \usage{
 As_svy_mean(
   Outcome,
