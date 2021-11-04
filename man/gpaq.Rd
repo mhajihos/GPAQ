@@ -1,8 +1,8 @@
-\name{gpag}
-\alias{gpag}
-\title{gpag: Calculating Unweighted Variables for the Global Physical Activity Questionnaire (GPAQ)}
+\name{gpaq}
+\alias{gpaq}
+\title{gpaq: Calculating Unweighted Variables for the Global Physical Activity Questionnaire (GPAQ)}
 \usage{
-gpag (Data)
+gpaq (Data)
 }
 \description{
 Prepare a dataset with unweighted variables and indiviual measures
@@ -14,7 +14,7 @@ Prepare a dataset with unweighted variables and indiviual measures
 An object of class 'data.frame'
 }
 \examples{
-data=gpag(my_data)
+data=gpaq(my_data)
 class(data)
  "data.frame"
 }
