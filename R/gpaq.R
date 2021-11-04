@@ -13,6 +13,6 @@ df=Psedentary(df)
 df=Psetspecific(df)
 df=Ptotal(df)
 
-df_valid=subset(df,df$valid==1)
+df_valid=subset(df,(df$valid==1 & !is.na(df$wstep1)))
 return(df_valid)
 }
