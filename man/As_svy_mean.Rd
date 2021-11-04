@@ -28,14 +28,14 @@ As_svy_mean(
 
 \item{starta}{an argument in the "svydesign" function.}
 
-\item{CLN}{depends on the analysis. There are six CLN variables in the output of the gpaq function. see details.}
+\item{CLN}{depends on the analysis. There are five CLN variables in the output of the gpaq function. see details.}
 
 \item{Median}{a logical argument. The default is FALSE when we are interested in the weighted average (and 95 percent confidence interval) value and TRUE for weighted median (and 25 percentile-75 percentile) values.}
 
 
 }
 \value{
-Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median and the third column is the 95 percent confidence interval for the average or 25 percentile and 75 percentile for the median.
+Output is a matrix with number of rows equal to the combination number of categories for Group arguments and three columns. The first column indicate the group of interest, the second group is the average or median of the outcome and the third column is the 95 percent confidence interval for the average or 25 percentile and 75 percentile for the median.
 }
 \description{
 Prepare the output for the weighted measures explained in the GPAQ Analysis Guide at the population level
@@ -46,7 +46,7 @@ Prepare the output for the weighted measures explained in the GPAQ Analysis Guid
 "cln_activity" is for the analysis of the outcome variable "work" "trans" "rec".
 "cln_vigorous" is for the analysis of the outcome variable "vig".
 "cln_specific" is for the the analysis of the outcome variable "pworkday" "ptravelday" "precday".
-"cln_Ptotal" is for the analysis of the outcome variable "ptotalday" "ptotalCat".
+
 }
 \examples{
 Examples for Mean
