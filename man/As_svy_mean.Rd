@@ -26,7 +26,7 @@ As_svy_mean(
 
 \item{weights}{an argument in the "svydesign" function.}
 
-\item{CLN}{depends on the analysis. There are six CLN variables in the output of the gpaq function. see details.}
+\item{CLN}{depends on the analysis. There are five CLN variables in the output of the gpaq function. see details.}
 
 \item{Median}{a logical argument. The default is FALSE when we are interested in the weighted average [and 95%CI] value and TRUE for weighted median [and 25%le-75%le] values.}
 
@@ -44,7 +44,6 @@ Prepare the output for the weighted measures explained in the GPAQ Analysis Guid
 "cln_activity" is for the analysis of the outcome variable "work" "trans" "rec".
 "cln_vigorous" is for the analysis of the outcome variable "vig".
 "cln_specific" is for the the analysis of the outcome variable "pworkday" "ptravelday" "precday".
-"cln_Ptotal" is for the analysis of the outcome variable "ptotalday" "ptotalCat".
 }
 \examples{
 ## Examples for Mean
