@@ -11,18 +11,25 @@ GPAQ package has 2 dependencies listed in the DESCRIPTION file : survey, dplyr.
 # install.packages("devtools")
 devtools::install_github("mhajihos/GPAQ")
 require(GPAQ)
+
+#Functions
+?gpaq
+?As_svy_mean
+?PtotalCat_svy_mean
+
 ```
 ## Read_Data For Mac or Windows
 ```
- if(.Platform$OS.type == "unix") {
+ if(.Platform$OS.type == "unix") 
+ {
 
   # MacOS
 
   library(Hmisc) # needed to load mdb data in MacOS
 
-  data1 <- mdb.get("STEPS_blr_20.mdb", tables = "data1")
+  data1 <- mdb.get("Dataset.mdb", tables = "data1")
 
-  data2 <- mdb.get("STEPS_blr_20.mdb", tables = "data2")
+  data2 <- mdb.get("Dataset.mdb", tables = "data2")
 
     } else {
 
@@ -30,7 +37,7 @@ require(GPAQ)
 
   library(RODBC)
 
-  channel <- odbcConnectAccess("STEPS_blr_20.mdb")
+  channel <- odbcConnectAccess("Dataset.mdb")
 
   data1 <- sqlFetch(channel,"data1", as.is=TRUE)
 
@@ -39,13 +46,23 @@ require(GPAQ)
   odbcClose(channel)
 
     }   
+my_data<- data.frame(merge(data1,data2, by="QR"))
+names(my_data)<- tolower(names(my_data))
+
+
+my_data$age4y=NA
+	my_data$age4y[18<=my_data$age & my_data$age<=29]="18-29"
+	my_data$age4y[30<=my_data$age & my_data$age<=44]="30-44"
+	my_data$age4y[45<=my_data$age & my_data$age<=59]="45-59"
+	my_data$age4y[60<=my_data$age & my_data$age<=69]="60-69"
+table(my_data$age4y)
 ```
 
 ## gpag()
 ```
 gpag (Data) # To prepare the unweighted dataset
 
-data= gpag (Data) 
+data= gpag (my_data) 
 class (data)
 
 [1] "data.frame"
@@ -59,48 +76,48 @@ As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)# For me
 As_svy_mean(~meet,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
 
         Category          Meet1) doesn't meet recs         95%CI
-1       18-29                   0.0966                  0.0712-0.122
-2       30-44                   0.1143                  0.0938-0.1348
-3       45-59                   0.1233                  0.1025-0.1442
-4       60-69                   0.2341                  0.1905-0.2778
+1        18-29                   0.0658              0.0386-0.0931
+2        30-44                   0.1100              0.0819-0.1382
+3        45-59                   0.1385              0.1068-0.1701
+4        60-69                   0.1863              0.1471-0.2255
 ```
 
             
 ```
 As_svy_mean(~meet,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
 
-        Category       Meet1) doesn't meet recs         95%CI
-1       18-29.Men              0.0767               0.0489-0.1046
-2       30-44.Men              0.1051               0.0749-0.1354
-3       45-59.Men              0.1315               0.1027-0.1604
-4       60-69.Men              0.2714               0.2019-0.3409
-5       18-29.Women            0.1177               0.0765-0.1589
-6       30-44.Women            0.1232               0.0974-0.1491
-7       45-59.Women            0.1162               0.0905-0.142
-8       60-69.Women            0.2084               0.1643-0.2524
+        Category            Meet1) doesn't meet recs         95%CI
+1      18-29.Men                   0.0703                0.0304-0.1103
+2      30-44.Men                   0.1002                0.0687-0.1317
+3      45-59.Men                   0.1474                0.101-0.1937
+4      60-69.Men                   0.1842                0.1269-0.2416
+5      18-29.Women                 0.0601                0.0285-0.0918
+6      30-44.Women                 0.1207                0.084-0.1574
+7      45-59.Women                 0.1313                0.0981-0.1645
+8      60-69.Women                 0.1879                0.1387-0.2371
 
 ```
             
 ```
 As_svy_mean(~meet,~age4y+UrbanRural+sex,Data=Data,id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
 
-              Category          Meet1) doesn't meet recs            95%CI
-1          18-29.rural.Men               0.0725                 0.0334-0.1117
-2          30-44.rural.Men               0.0903                 0.0478-0.1328
-3          45-59.rural.Men               0.1189                 0.0784-0.1593
-4          60-69.rural.Men               0.2054                 0.1149-0.296
-5          18-29.urban.Men               0.0806                 0.0412-0.12
-6          30-44.urban.Men               0.1159                 0.0739-0.1578
-7          45-59.urban.Men               0.1456                 0.1043-0.1869
-8          60-69.urban.Men               0.3270                 0.2278-0.4263
-9          18-29.rural.Women             0.1367                 0.0677-0.2058
-10         30-44.rural.Women             0.1114                 0.0738-0.1491
-11         45-59.rural.Women             0.1119                 0.0743-0.1494
-12         60-69.rural.Women             0.2350                 0.1582-0.3118
-13         18-29.urban.Women             0.0997                 0.0536-0.1459
-14         30-44.urban.Women             0.1312                 0.0963-0.1661
-15         45-59.urban.Women             0.1201                 0.0847-0.1554
-16         60-69.urban.Women             0.1922                 0.1393-0.2452
+              Category                Meet1) doesn't meet recs            95%CI
+1         18-29.Rural.Men                     0.0872                 0.0315-0.1428
+2         30-44.Rural.Men                     0.1332                 0.0763-0.19
+3         45-59.Rural.Men                     0.1489                 0.104-0.1937
+4         60-69.Rural.Men                     0.1923                 0.1333-0.2512
+5         18-29.Urban.Men                     0.0675                 0.0218-0.1132
+6         30-44.Urban.Men                     0.0914                 0.0546-0.1281
+7         45-59.Urban.Men                     0.1467                 0.0842-0.2093
+8         60-69.Urban.Men                     0.1814                 0.1068-0.256
+9         18-29.Rural.Women                   0.1057                 0.0346-0.1768
+10        30-44.Rural.Women                   0.1717                 0.1176-0.2257
+11        45-59.Rural.Women                   0.1142                 0.0731-0.1553
+12        60-69.Rural.Women                   0.2232                 0.1654-0.2809
+13        18-29.Urban.Women                   0.0535                 0.0188-0.0882
+14        30-44.Urban.Women                   0.1085                 0.0648-0.1521
+15        45-59.Urban.Women                   0.1360                 0.0952-0.1768
+16        60-69.Urban.Women                   0.1779                 0.1168-0.2389
 
 ```
             
@@ -108,7 +125,7 @@ As_svy_mean(~meet,~age4y+UrbanRural+sex,Data=Data,id=psu,weights=wstep1,strata =
 As_svy_mean(~meet,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
 
                   Category                  Meet1) doesn't meet recs         95%CI
-1           meet1) doesn't meet recs                0.1315                 0.1147-0.1483
+1           meet1) doesn't meet recs                   0.1157            0.0968-0.1347
 ```
 
 ```
@@ -116,10 +133,10 @@ As_svy_mean(~meet,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet
 As_svy_mean(~ptotalday,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
 
             Category        Ptotalday            25%le-75%le
-1           18-29           145.7143            124.2857-185
-2           30-44           182.8571            150-217.8571
-3           45-59           180.0000            171.4286-205.7143
-4           60-69            60.0000            60-85.7143
+1            18-29          122.1429           107.1429-145.7143
+2            30-44          124.2857           111.4286-150
+3            45-59          128.5714           120-157.1429
+4            60-69          75.0000              60-90
 
 ```
             
@@ -127,36 +144,36 @@ As_svy_mean(~ptotalday,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,C
 As_svy_mean(~ptotalday,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
 
                 Category         Ptotalday         25%le-75%le
-1               18-29.Men       210.0000        171.4286-244.2857
-2               30-44.Men       257.1429        229.2857-291.4286
-3               45-59.Men       240.0000        214.2857-267.8571
-4               60-69.Men       60.0000             58-90
-5               18-29.Women     117.8571        80-131.4286
-6               30-44.Women     120.0000        115.7143-150
-7               45-59.Women     128.5714        120-162.8571
-8               60-69.Women      60.0000        60-85.7143
+1              18-29.Men         141.4286         111.4286-180
+2              30-44.Men         171.4286         140-214.2857
+3              45-59.Men         180.0000         154.2857-211.4286
+4              60-69.Men         85.7143          66.4286-120
+5              18-29.Women       102.8571         85.7143-128.5714
+6              30-44.Women       100.0000            90-120
+7              45-59.Women       111.4286         98.5714-128.5714
+8              60-69.Women       65.0000           60-85.7143
 ```
             
 ```
 As_svy_mean(~ptotalday,~age4y+UrbanRural+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
 
               Category              Ptotalday          25%le-75%le
-1       18-29.rural.Men             257.1429        205.7143-300
-2       30-44.rural.Men             301.4286        265.7143-351.4286
-3       45-59.rural.Men             278.5714        240-311.4286
-4       60-69.rural.Men             68.5714         57.1429-128
-5       18-29.urban.Men             145.7143        120-214.2857
-6       30-44.urban.Men             222.8571           180-270
-7       45-59.urban.Men             214.2857        180-257.1429
-8       60-69.urban.Men             51.4286             40-80
-9       18-29.rural.Women           120.0000        72.8571-180
-10      30-44.rural.Women           180.0000        128.5714-242.8571
-11      45-59.rural.Women           186.4286        171.4286-234.2857
-12      60-69.rural.Women           60.0000            60-105
-13      18-29.urban.Women           111.4286        85.7143-131.4286
-14      30-44.urban.Women           85.7143         68.5714-120
-15      45-59.urban.Women           107.1429            90-120
-16      60-69.urban.Women           60.0000         60-85.7143
+1         18-29.Rural.Men          168.5714         102.8571-244.2857
+2         30-44.Rural.Men          248.5714            180-300
+3         45-59.Rural.Men          210.0000         171.4286-244.2857
+4         60-69.Rural.Men          115.7143         68.5714-162.8571
+5         18-29.Urban.Men          141.4286         111.4286-194.2857
+6         30-44.Urban.Men          150.7143         127.8571-204.2857
+7         45-59.Urban.Men          171.4286         131.4286-192.8571
+8         60-69.Urban.Men          81.4286             60-100
+9         18-29.Rural.Women        90.0000          71.4286-180
+10        30-44.Rural.Women        131.4286         102.8571-188.5714
+11        45-59.Rural.Women        150.0000         120-192.8571
+12        60-69.Rural.Women        77.1429          60-102.8571
+13        18-29.Urban.Women        102.8571         85.7143-132.8571
+14        30-44.Urban.Women        94.2857          82.8571-111.4286
+15        45-59.Urban.Women        102.8571         85.7143-120
+16        60-69.Urban.Women        64.2857             60-90
 
 ```
             
@@ -164,7 +181,7 @@ As_svy_mean(~ptotalday,~age4y+UrbanRural+sex,Data=Data,id=psu, weights=wstep1,st
 As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal",Median=TRUE)
 
             Category        Ptotalday       25%le-75%le
-1           ptotalday       137.1429        120-157.1429
+1           ptotalday       120          112.8571-137.1429
 ```
         
 
@@ -175,40 +192,40 @@ PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN) # For mean of
 PtotalCat_svy_mean(~ptotalCat,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
     Category        ptotalCat1..Low.Level     95%CI_Low         ptotalCat2..Moderate.level
-1    18-29                0.1287            0.1014-0.1561                     0.2584
-2    30-44                0.1553            0.1299-0.1807                     0.2665
-3    45-59                0.1482            0.1265-0.1699                     0.2566
-4    60-69                0.2842            0.2408-0.3276                     0.3876
+1    18-29                0.1193             0.081-0.1576                      0.2355
+2    30-44                0.1610             0.1253-0.1966                     0.2951
+3    45-59                0.1892             0.1528-0.2256                     0.2941
+4    60-69                0.2260             0.1853-0.2666                     0.4093
     
     95%CI_Moderate                  ptotalCat3..High.level          95%CI_High
-1       0.2192-0.2975                   0.6129                      0.569-0.6568
-2       0.235-0.2981                    0.5781                      0.5388-0.6174
-3       0.2307-0.2826                   0.5951                      0.5645-0.6258
-4       0.3489-0.4262                   0.3282                      0.2854-0.3711
+1    0.1901-0.2809                        0.6452                  0.5909-0.6995
+2    0.257-0.3333                         0.5439                  0.499-0.5888
+3    0.2557-0.3325                        0.5167                  0.4751-0.5582
+4    0.3644-0.4542                       0.3647                   0.3165-0.413
 ```
 
 ```
 PtotalCat_svy_mean(~ptotalCat,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
         Category            ptotalCat1..Low.Level     95%CI_Low                 ptotalCat2..Moderate.level
-1       18-29.Men                0.1083                 0.0762-0.1403                     0.1710
-2       30-44.Men                0.1396                 0.1045-0.1747                     0.1977
-3       45-59.Men                0.1559                 0.1256-0.1861                     0.1978
-4       60-69.Men                0.3079                 0.239-0.3768                      0.3215
-5       18-29.Women              0.1505                 0.1049-0.1962                     0.3514
-6       30-44.Women              0.1707                 0.1397-0.2017                     0.3335
-7       45-59.Women              0.1417                 0.1142-0.1692                     0.3073
-8       60-69.Women              0.2678                 0.2222-0.3134                     0.4332
+1      18-29.Men                  0.1223            0.071-0.1737                      0.1282
+2      30-44.Men                  0.1501            0.1117-0.1884                     0.2299
+3      45-59.Men                  0.2167            0.1665-0.2668                     0.2169
+4      60-69.Men                  0.2187            0.1617-0.2756                     0.3899
+5      18-29.Women                0.1155            0.0725-0.1586                     0.3702
+6      30-44.Women                0.1728            0.1259-0.2198                     0.3662
+7      45-59.Women                0.1671            0.1269-0.2073                     0.3563
+8      60-69.Women                0.2319            0.1832-0.2806                     0.4252
     
         95%CI_Moderate              ptotalCat3..High.level              95%CI_High
-1       0.1265-0.2155                   0.7208                          0.67-0.7715
-2       0.1553-0.2401                   0.6627                          0.6083-0.7171
-3       0.1594-0.2361                   0.6464                          0.6028-0.69
-4       0.2636-0.3793                   0.3706                          0.3094-0.4319
-5       0.2903-0.4125                   0.4980                          0.4293-0.5668
-6       0.2925-0.3745                   0.4958                          0.4509-0.5407
-7       0.2719-0.3428                   0.5510                          0.5114-0.5906
-8       0.3888-0.4777                   0.2990                          0.2499-0.348
+1      0.077-0.1794                        0.7495                     0.6755-0.8234
+2      0.1801-0.2798                       0.6200                     0.5648-0.6751
+3      0.1745-0.2593                       0.5664                     0.5111-0.6217
+4      0.318-0.4618                        0.3915                     0.3179-0.465
+5      0.2857-0.4546                       0.5143                     0.4313-0.5973
+6      0.3181-0.4143                       0.4610                     0.4047-0.5172
+7      0.309-0.4036                        0.4766                     0.4254-0.5279
+8      0.3747-0.4756                       0.3429                     0.2909-0.3949
 
 ```
 
@@ -216,59 +233,59 @@ PtotalCat_svy_mean(~ptotalCat,~age4y+sex,Data=Data,id=psu, weights=wstep1,strata
 ```
 PtotalCat_svy_mean(~ptotalCat,~age4y+UrbanRural+sex,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
-            Category            ptotalCat1..Low.Level       95%CI_Low
-1       18-29.rural.Men                0.1036               0.0571-0.15
-2       30-44.rural.Men                0.1139               0.0671-0.1606
-3       45-59.rural.Men                0.1315               0.0906-0.1723
-4       60-69.rural.Men                0.2338               0.1433-0.3243
-5       18-29.urban.Men                0.1125               0.0681-0.157
-6       30-44.urban.Men                0.1583               0.1084-0.2081
-7       45-59.urban.Men                0.1829               0.138-0.2278
-8       60-69.urban.Men                0.3704               0.2731-0.4677
-9       18-29.rural.Women              0.1448               0.0744-0.2152
-10      30-44.rural.Women              0.1223               0.0808-0.1637
-11      45-59.rural.Women              0.1291               0.0901-0.1682
-12      60-69.rural.Women              0.2562               0.1812-0.3312
-13      18-29.urban.Women              0.1560               0.097-0.215
-14      30-44.urban.Women              0.2033               0.16-0.2467
-15      45-59.urban.Women              0.1528               0.1144-0.1913
-16      60-69.urban.Women              0.2748               0.2173-0.3324
+            Category                  ptotalCat1..Low.Level       95%CI_Low
+1          18-29.Rural.Men                  0.1454             0.0692-0.2216
+2          30-44.Rural.Men                  0.1882             0.1252-0.2512
+3          45-59.Rural.Men                  0.1903             0.1418-0.2389
+4          60-69.Rural.Men                  0.2399             0.1789-0.301
+5          18-29.Urban.Men                  0.1184             0.0601-0.1768
+6          30-44.Urban.Men                  0.1399             0.0944-0.1853
+7          45-59.Urban.Men                  0.2272             0.1601-0.2944
+8          60-69.Urban.Men                  0.2112             0.1373-0.285
+9          18-29.Rural.Women                0.1517             0.0716-0.2319
+10         30-44.Rural.Women                0.2310             0.1662-0.2957
+11         45-59.Rural.Women                0.1683             0.1117-0.2249
+12         60-69.Rural.Women                0.2658             0.2041-0.3274
+13         18-29.Urban.Women                0.1103             0.0624-0.1581
+14         30-44.Urban.Women                0.1588             0.1028-0.2149
+15         45-59.Urban.Women                0.1668             0.1179-0.2157
+16         60-69.Urban.Women                0.2223             0.1622-0.2823
                
                ptotalCat2..Moderate.level      95%CI_Moderate          ptotalCat3..High.level
-1                      0.1395                   0.0793-0.1998                 0.7569
-2                      0.1607                   0.1009-0.2204                 0.7254
-3                      0.1877                   0.1306-0.2449                 0.6808
-4                      0.3199                   0.2324-0.4073                 0.4463
-5                      0.1999                   0.1356-0.2642                 0.6876
-6                      0.2246                   0.1663-0.2829                 0.6171
-7                      0.2089                   0.1583-0.2595                 0.6082
-8                      0.3228                   0.2458-0.3998                 0.3068
-9                      0.3237                   0.2342-0.4132                 0.5316
-10                     0.2690                   0.2091-0.3289                 0.6087
-11                     0.2215                   0.1814-0.2617                 0.6493
-12                     0.3981                   0.3243-0.472                  0.3457
-13                     0.3776                   0.2958-0.4593                 0.4664
-14                     0.3770                   0.3208-0.4333                 0.4196
-15                     0.3835                   0.3297-0.4374                 0.4636
-16                     0.4544                   0.399-0.5099                  0.2707
+1                      0.1915                  0.1034-0.2795                 0.6632
+2                      0.1613                  0.1138-0.2087                 0.6505
+3                      0.1971                  0.1486-0.2456                 0.6126
+4                      0.2888                  0.2231-0.3545                 0.4712
+5                      0.1175                  0.0605-0.1745                 0.7641
+6                      0.2483                  0.1867-0.3099                 0.6118
+7                      0.2249                  0.1689-0.281                  0.5478
+8                      0.4254                  0.3314-0.5195                 0.3634
+9                      0.3999                  0.2995-0.5003                 0.4484
+10                     0.2375                  0.1875-0.2875                 0.5316
+11                     0.2872                  0.237-0.3374                  0.5445
+12                     0.3525                  0.2973-0.4078                 0.3817
+13                     0.3658                  0.2699-0.4617                 0.5239
+14                     0.3971                  0.3389-0.4554                 0.4440
+15                     0.3754                  0.3171-0.4337                 0.4578
+16                     0.4459                  0.3832-0.5086                 0.3318
                      
                      95%CI_High
-1                   0.6911-0.8227
-2                   0.6538-0.7971
-3                   0.6197-0.7419
-4                   0.3511-0.5416
-5                   0.6113-0.7638
-6                   0.5402-0.6941
-7                   0.5452-0.6711
-8                   0.2317-0.3818
-9                   0.4229-0.6402
-10                  0.5347-0.6827
-11                  0.5951-0.7036
-12                  0.2669-0.4245
-13                  0.3827-0.5502
-14                  0.3627-0.4766
-15                  0.4101-0.5172
-16                  0.2079-0.3336
+1                 0.5707-0.7556
+2                 0.5686-0.7325
+3                 0.5535-0.6716
+4                 0.3922-0.5503
+5                 0.6805-0.8477
+6                 0.5455-0.6781
+7                 0.4747-0.6209
+8                 0.268-0.4588
+9                 0.338-0.5587
+10                0.4575-0.6057
+11                0.4781-0.6109
+12                0.3171-0.4463
+13                0.4299-0.618
+14                0.3766-0.5115
+15                0.3953-0.5204
+16                0.2676-0.3961
 
 
 ```
@@ -276,10 +293,10 @@ PtotalCat_svy_mean(~ptotalCat,~age4y+UrbanRural+sex,Data=Data,id=psu, weights=ws
 ```
 PtotalCat_svy_mean(~ptotalCat,Data=Data,id=psu,	weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
-                    Category                PtotalCat         95%CI
-1           ptotalCat1) Low Level           0.1669          0.1486-0.1853
-2           ptotalCat2) Moderate level      0.2802          0.2624-0.2981
-3           ptotalCat3) High level          0.5528          0.5271-0.5785
+                    Category                 PtotalCat         95%CI
+1           ptotalCat1) Low Level             0.1658       0.1415-0.1901
+2           ptotalCat2) Moderate level        0.2943       0.2734-0.3152
+3           ptotalCat3) High level            0.5399       0.5103-0.5696
 
 ```
             
