@@ -58,20 +58,16 @@ my_data$age4y=NA
 table(my_data$age4y)
 ```
 
-## gpag()
+## gpag (Data)
 ```
-gpag (Data) # To prepare the unweighted dataset
-
 data= gpag (my_data) 
 class (data)
 
 [1] "data.frame"
 ```
 
-## As_svy_mean()
+## As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)
 ```
-As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)# For mean and median of any combination of factors
-
 ## Examples for Mean
 As_svy_mean(~meet,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
 
@@ -185,10 +181,8 @@ As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln
 ```
         
 
-## PtotalCat_svy_mean()
+## PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN)
 ```
-PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN) # For mean of Total physical activity categories for any combination of factors
-
 PtotalCat_svy_mean(~ptotalCat,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
     Category        ptotalCat1..Low.Level     95%CI_Low         ptotalCat2..Moderate.level
