@@ -47,6 +47,8 @@ require(GPAQ)
 
     }   
 my_data<- data.frame(merge(data1,data2, by="QR"))
+
+#Change variable names to lowercase
 names(my_data)<- tolower(names(my_data))
 
 
@@ -58,7 +60,7 @@ my_data$age4y=NA
 table(my_data$age4y)
 ```
 
-## gpag (Data)
+### gpag (Data)
 ```
 data= gpag (my_data) 
 class (data)
@@ -66,7 +68,7 @@ class (data)
 [1] "data.frame"
 ```
 
-## As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)
+### As_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN,Median=FALSE)
 ```
 ## Examples for Mean
 As_svy_mean(~meet,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_meet")
@@ -181,7 +183,7 @@ As_svy_mean(~ptotalday,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln
 ```
         
 
-## PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN)
+### PtotalCat_svy_mean (Outcome,Group=NULL,Data,id,weights,strata,CLN)
 ```
 PtotalCat_svy_mean(~ptotalCat,~age4y,Data=Data,id=psu, weights=wstep1,strata =stratum,CLN="cln_Ptotal")
 
