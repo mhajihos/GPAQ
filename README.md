@@ -51,7 +51,7 @@ my_data<- data.frame(merge(data1,data2, by="QR"))
 #Change variable names to lowercase
 names(my_data)<- tolower(names(my_data))
 
-
+#Creat a new categorical age variable
 my_data$age4y=NA
 	my_data$age4y[18<=my_data$age & my_data$age<=29]="18-29"
 	my_data$age4y[30<=my_data$age & my_data$age<=44]="30-44"
