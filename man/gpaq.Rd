@@ -27,9 +27,9 @@ gpaq function generates unweighted variables mentioned in the GPAQ Analysis Guid
 "trans": indicates whether or not respondent did any transport-related activity.
 "rec": indicates whether or not respondent did any recreationrelated activity.
 "vig": indicates whether or not respondent did any vigorous activity.
-"pworkday": percent of all activity from work-related activities.
-"ptravelday": percent of all activity from transportation-related activities.
-"precday": percent of all activity from recreational activities.
+"pworkday": Average work-related activity per day in minutes.
+"ptravelday": Average transportrelated activity per day in minutes.
+"precday": Average recreationrelated activity per day in minutes.
 "ptotalCat": indicates whether or not respondent had "Low", "Medium", or "High" physical activity.
 }
 \examples{
