@@ -67,9 +67,9 @@ CI3=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[3]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[3]],4))
 
 Res=data.frame(Category,Estimation1,CI1,Estimation2,CI2,Estimation3,CI3)
-names(Res)[c(3,5,7)]=c(colnames(S)[which(substr(colnames(S),1,10)=="High")],"95%CI_High",
-				colnames(S)[which(substr(colnames(S),1,10)=="Moderate")],"95%CI_Moderate",
-				colnames(S)[which(substr(colnames(S),1,10)=="Low")],"95%CI_Low")
+names(Res)[c(2,3,3,5,6,7)]=c("High",colnames(S)[which(substr(colnames(S),1,10)=="High")],"95%CI_High",
+				"Moderate",colnames(S)[which(substr(colnames(S),1,10)=="Moderate")],"95%CI_Moderate",
+				"Low",colnames(S)[which(substr(colnames(S),1,10)=="Low")],"95%CI_Low")
 }
 detach(Data_subset)
 return(Res)
