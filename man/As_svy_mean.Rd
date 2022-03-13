@@ -41,11 +41,11 @@ Output is a matrix with number of rows equal to the combination number of catego
 Prepare the output for the weighted measures explained in the GPAQ Analysis Guide at the population level
 }
 \details{
-"cln_composition" is for the analysis of the outcome variables "percentwork" "percenttrans" "percentrec".
-"cln_meet" is for the analysis of the outcome variable "meet".
-"cln_activity" is for the analysis of the outcome variable "work" "trans" "rec".
-"cln_vigorous" is for the analysis of the outcome variable "vig".
-"cln_specific" is for the the analysis of the outcome variable "pworkday" "ptravelday" "precday".
+"cln_composition" is for the analysis of the outcome variables "percentwork" "percenttrans" "percentrec".\cr
+"cln_meet" is for the analysis of the outcome variable "meet".\cr
+"cln_activity" is for the analysis of the outcome variable "work" "trans" "rec".\cr
+"cln_vigorous" is for the analysis of the outcome variable "vig".\cr
+"cln_specific" is for the the analysis of the outcome variable "pworkday" "ptravelday" "precday".\cr
 
 }
 \examples{
