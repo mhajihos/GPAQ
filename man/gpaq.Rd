@@ -16,8 +16,8 @@ An object of class 'data.frame'
 Prepare a dataset with unweighted variables and indiviual measures
 }
 \details{
-gpaq function generates unweighted variables mentioned in the GPAQ Analysis Guide at the individual level. Unweighted variables are listed as follows:<br>
-"meet": reports percentage of respondents who do not meet WHO recommendations on physical activity for health.
+gpaq function generates unweighted variables mentioned in the GPAQ Analysis Guide at the individual level. Unweighted variables are listed as follows: 
+\"meet": reports percentage of respondents who do not meet WHO recommendations on physical activity for health.
 "ptotal" sum of all activities per week.
 "ptotalday": sum of all activities per week divided by 7 to get avg. per day.
 "percentwork": percent of all activity from work related activities.
