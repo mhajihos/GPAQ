@@ -11,3 +11,11 @@ LazyData: TRUE
 Imports:
     survey,
     dplyr,
+    shinythemes,
+    shiny,
+    RODBC,
+    gridExtra,
+    data.table,
+    ggplot2,
+    plotly,
+    ggforce
