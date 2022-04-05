@@ -16,6 +16,7 @@ require(GPAQ)
 ?gpaq
 ?As_svy_mean
 ?PtotalCat_svy_mean
+?GPAQ_Shiny
 
 ```
 ## Read_Data For Mac or Windows
