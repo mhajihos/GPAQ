@@ -192,6 +192,10 @@ mainPanel(tags$head(
 			radioButtons(inputId="Facet",label = "Stratification variable:",
                			   choices=c("None","Age_categories"="age4y","Urban/Rural"="ur","Sex"="sex")),
 
+			radioButtons(inputId="Levels",label = "Only when outcome is ptotalCat:",
+               			   choices=c("High","Moderate","Low")),
+
+
 			actionButton("do2", "Run")),
 
 mainPanel(
@@ -612,7 +616,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 ggplotly(P)
 
-}else if(input$Facet=="None" & input$Outcome=="ptotalCat"){
+}else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="High"){
 
 Y=as.formula(paste0("~",input$Outcome))
 X=as.formula(paste0("~",input$Group))
@@ -634,35 +638,103 @@ LCI3=as.numeric(substr(R1[,7],1,5))
 UCI3=as.numeric(substr(R1[,7],8,12))
 T3="The proportion of people in Low level of physical activity"
 
-High=cbind(Average=Ave1,
-		LCI=LCI1*100,
-		UCI=UCI1*100,
-		Level=rep("High",length(Names)))
-
-Moderate=cbind(Average=Ave2,
-		LCI=LCI2*100,
-		UCI=UCI2*100,
-		Level=rep("Moderate",length(Names)))
-
-Low=cbind(Average=Ave3,
-		LCI=LCI3*100,
-		UCI=UCI3*100,
-		Level=rep("Low",length(Names)))
-
-Res=data.frame(rep(factor(Names),3),rbind(High,Moderate,Low))
+Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
+			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
+			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
 names(Res)[1]="Groups"
 
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Level))+
-	geom_point()+ 
-	geom_errorbarh(height=.1)+
-	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
-	scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
-	theme_minimal()+ggtitle("The proportion of people at different \n levels of physical activity")+
-	theme(text=element_text(family="Times",size=12, color="black"))+
-	theme(panel.spacing = unit(1, "lines"))
+ P <- ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ geom_point()+ 
+ geom_errorbarh(height=.1)+
+ geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
+ scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
+ theme_minimal()+ggtitle("The proportion of people \n at high level of physical activity")+
+ theme(text=element_text(family="Times",size=12, color="black"))+
+ theme(panel.spacing = unit(1, "lines"))
+ggplotly(P)
+}
+
+else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Moderate")
+{
+
+Y=as.formula(paste0("~",input$Outcome))
+X=as.formula(paste0("~",input$Group))
+R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+
+Names=R1[,1]
+Ave1=R1[,2]*100
+LCI1=as.numeric(substr(R1[,3],1,5))
+UCI1=as.numeric(substr(R1[,3],8,12))
+T1="The proportion of people in High level of physical activity"
+
+Ave2=R1[,4]*100
+LCI2=as.numeric(substr(R1[,5],1,5))
+UCI2=as.numeric(substr(R1[,5],8,12))
+T2="The proportion of people in Moderate level of physical activity"
+
+Ave3=R1[,6]*100
+LCI3=as.numeric(substr(R1[,7],1,5))
+UCI3=as.numeric(substr(R1[,7],8,12))
+T3="The proportion of people in Low level of physical activity"
+
+Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
+			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
+			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
+names(Res)[1]="Groups"
+
+ P <- ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ geom_point()+ 
+ geom_errorbarh(height=.1)+
+ geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
+ scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
+ theme_minimal()+ggtitle("The proportion of people \n at moderate level of physical activity")+
+ theme(text=element_text(family="Times",size=12, color="black"))+
+ theme(panel.spacing = unit(1, "lines"))
+ggplotly(P)
+}
+
+else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Low")
+{
+
+Y=as.formula(paste0("~",input$Outcome))
+X=as.formula(paste0("~",input$Group))
+R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+
+Names=R1[,1]
+Ave1=R1[,2]*100
+LCI1=as.numeric(substr(R1[,3],1,5))
+UCI1=as.numeric(substr(R1[,3],8,12))
+T1="The proportion of people in High level of physical activity"
+
+Ave2=R1[,4]*100
+LCI2=as.numeric(substr(R1[,5],1,5))
+UCI2=as.numeric(substr(R1[,5],8,12))
+T2="The proportion of people in Moderate level of physical activity"
+
+Ave3=R1[,6]*100
+LCI3=as.numeric(substr(R1[,7],1,5))
+UCI3=as.numeric(substr(R1[,7],8,12))
+T3="The proportion of people in Low level of physical activity"
+
+Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
+			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
+			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
+names(Res)[1]="Groups"
+
+ P <- ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ geom_point()+ 
+ geom_errorbarh(height=.1)+
+ geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
+ scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
+ theme_minimal()+ggtitle("The proportion of people \n at low level of physical activity")+
+ theme(text=element_text(family="Times",size=12, color="black"))+
+ theme(panel.spacing = unit(1, "lines"))
 ggplotly(P)
 
-}else if(input$Facet!="None" & input$Outcome=="ptotalCat"){
+}else if(input$Facet!="None" & input$Outcome=="ptotalCat" & input$Levels=="High"){
 Y=as.formula(paste0("~",input$Outcome))
 X=as.formula(paste0("~",input$Group,"+",input$Facet))
 
@@ -684,21 +756,99 @@ UCI3=as.numeric(substr(R1[,7],8,12))
 T3="The proportion of people in Low level of physical activity"
 
 
-
-Res=data.frame(factor(Names),Average=rbind(Ave1,Ave2,Ave3),
-			LCI=rbind(LCI1*100,LCI2*100,LCI3*100),
-			UCI=rbind(UCI1*100,UCI2*100,UCI3*100))
+Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
+			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
+			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
 names(Res)[1]="Groups"
 
 
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
-	geom_point()+ 
-	geom_errorbarh(height=.1)+
-	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
-	scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
-	theme_minimal()+ggtitle("The proportion of people at different \n levels of physical activity")+
-	theme(text=element_text(family="Times",size=12, color="black"))+
-	theme(panel.spacing = unit(1, "lines"))
+ P <- ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ geom_point()+ 
+ geom_errorbarh(height=.1)+
+ geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
+ scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
+ theme_minimal()+ggtitle("The proportion of people \n at high level of physical activity")+
+ theme(text=element_text(family="Times",size=12, color="black"))+
+ theme(panel.spacing = unit(1, "lines"))
+ggplotly(P)
+
+}else if(input$Facet!="None" & input$Outcome=="ptotalCat" & input$Levels=="Moderate"){
+Y=as.formula(paste0("~",input$Outcome))
+X=as.formula(paste0("~",input$Group,"+",input$Facet))
+
+R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Names=R1[,1]
+Ave1=R1[,2]*100
+LCI1=as.numeric(substr(R1[,3],1,5))
+UCI1=as.numeric(substr(R1[,3],8,12))
+T1="The proportion of people in High level of physical activity"
+
+Ave2=R1[,4]*100
+LCI2=as.numeric(substr(R1[,5],1,5))
+UCI2=as.numeric(substr(R1[,5],8,12))
+T2="The proportion of people in Moderate level of physical activity"
+
+Ave3=R1[,6]*100
+LCI3=as.numeric(substr(R1[,7],1,5))
+UCI3=as.numeric(substr(R1[,7],8,12))
+T3="The proportion of people in Low level of physical activity"
+
+
+Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
+			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
+			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
+names(Res)[1]="Groups"
+
+
+ P <- ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ geom_point()+ 
+ geom_errorbarh(height=.1)+
+ geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
+ scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
+ theme_minimal()+ggtitle("The proportion of people \n at moderate level of physical activity")+
+ theme(text=element_text(family="Times",size=12, color="black"))+
+ theme(panel.spacing = unit(1, "lines"))
+ggplotly(P)
+
+}else if(input$Facet!="None" & input$Outcome=="ptotalCat" & input$Levels=="Low"){
+Y=as.formula(paste0("~",input$Outcome))
+X=as.formula(paste0("~",input$Group,"+",input$Facet))
+
+R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Names=R1[,1]
+Ave1=R1[,2]*100
+LCI1=as.numeric(substr(R1[,3],1,5))
+UCI1=as.numeric(substr(R1[,3],8,12))
+T1="The proportion of people in High level of physical activity"
+
+Ave2=R1[,4]*100
+LCI2=as.numeric(substr(R1[,5],1,5))
+UCI2=as.numeric(substr(R1[,5],8,12))
+T2="The proportion of people in Moderate level of physical activity"
+
+Ave3=R1[,6]*100
+LCI3=as.numeric(substr(R1[,7],1,5))
+UCI3=as.numeric(substr(R1[,7],8,12))
+T3="The proportion of people in Low level of physical activity"
+
+
+Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
+			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
+			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
+names(Res)[1]="Groups"
+
+
+ P <- ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ geom_point()+ 
+ geom_errorbarh(height=.1)+
+ geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
+ scale_x_continuous(limits=c(0,100), breaks=seq(0,100,10), name="Average")+
+ theme_minimal()+ggtitle("The proportion of people \n at low level of physical activity")+
+ theme(text=element_text(family="Times",size=12, color="black"))+
+ theme(panel.spacing = unit(1, "lines"))
 ggplotly(P)
 }
 
@@ -711,5 +861,4 @@ shinyApp(ui = ui, server = server)
 
 
 }
-
 
