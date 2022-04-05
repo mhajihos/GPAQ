@@ -2,18 +2,20 @@
 
 GPAQ_Shiny=function()
 {
-require(shinythemes)
-require(shiny)
-require(GPAQ)
-require(dplyr)
-require(survey)
-require(RODBC)
-require(gridExtra)
-require(data.table)
-require(ggplot2)
-require(plotly)
-library(ggforce)
 
+suppressMessages(suppressWarnings(require(shinythemes)))
+suppressMessages(suppressWarnings(require(shiny)))
+suppressMessages(suppressWarnings(require(GPAQ)))	
+suppressMessages(suppressWarnings(require(dplyr)))	
+suppressMessages(suppressWarnings(require(survey)))	
+suppressMessages(suppressWarnings(require(RODBC)))	
+suppressMessages(suppressWarnings(require(gridExtra)))	
+suppressMessages(suppressWarnings(require(data.table)))	
+suppressMessages(suppressWarnings(require(ggplot2)))	
+suppressMessages(suppressWarnings(require(plotly)))
+suppressMessages(suppressWarnings(require(ggforce)))
+
+	
 roundUp <- function(x, nice=c(1,2,4,5,6,8,10)) {
     if(length(x) != 1) stop("'x' must be of length 1")
     10^floor(log10(x)) * nice[[which(x <= 10^floor(log10(x)) * nice)[[1]]]]
