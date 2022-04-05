@@ -3,3 +3,4 @@
 export(As_svy_mean)
 export(PtotalCat_svy_mean)
 export(gpaq)
+export(GPAQ_Shiny)
