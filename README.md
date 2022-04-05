@@ -298,7 +298,11 @@ PtotalCat_svy_mean(~ptotalCat,Data=Data,id=psu,	weights=wstep1,strata =stratum,C
 ```
 
 ### GPAQ_Shiny:Shiny app for the Global Physical Activity Questionnaire (GPAQ)
-This function will Lunch a shiny app on the local server for weighted and unweighted analysis
+This function will Lunch a shiny app on the local server for weighted and unweighted data analysis.
+
+```
+GPAQ_Shiny()
+```
             
 ## Useful Links
 [WHO European Office for the Prevention and Control of NCDs (NCD Office)](https://www.euro.who.int/en/health-topics/noncommunicable-diseases/pages/who-european-office-for-the-prevention-and-control-of-noncommunicable-diseases-ncd-office)\
