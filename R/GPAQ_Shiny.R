@@ -215,7 +215,7 @@ mainPanel(
 
 
 
-server = function(input, output) {
+server = function(input, output,session) {
 options(shiny.maxRequestSize=100*1024^2)
 
 
@@ -345,13 +345,13 @@ observe({
 
 observeEvent(input$do2,{
 
-if(Popdata==NULL){
+if(Popdata()==NULL){
       sendSweetAlert(
         session = session,
         title = "Error...",
         text = "Please Upload Microsoft Access MDB file",
         type = "error"	
-}else{
+} else {
 output$plot2<- renderPlotly({
 
 if(input$Facet=="None" & input$Outcome=="meet"){
