@@ -373,7 +373,7 @@ if(is.null(Popdata())){
 output$plot2<- renderPlotly({
 
 
-if(input$Facet=="None" & input$Outcome=="meet"){ #Generating Results for WHO PA recommendation "meet" when there is no stratification
+if(input$Facet=="None" & input$Outcome=="meet"){ #Generating Results for WHO PA recommendation "meet" when there is no need for stratification
 Y=as.formula(paste0("~",input$Outcome))
 X=as.formula(paste0("~",input$Group))
 
@@ -419,7 +419,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 
 ggplotly(P) 
 
-}else if(input$Facet=="None" & (input$Outcome %in% c("percentwork","percenttrans","percentrec"))){ #Generating Results for "percentwork","percenttrans", and "percentrec" when there is no stratification
+}else if(input$Facet=="None" & (input$Outcome %in% c("percentwork","percenttrans","percentrec"))){ #Generating Results for "percentwork","percenttrans", and "percentrec" when there is no need for stratification
 Y=as.formula(paste0("~",input$Outcome))
 X=as.formula(paste0("~",input$Group))
 
@@ -509,7 +509,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 
 ggplotly(P)
 
-}else if(input$Facet=="None" & (input$Outcome %in% c("work","trans","rec"))){ #Generating Results for "work","trans",and "rec" when there is no stratification
+}else if(input$Facet=="None" & (input$Outcome %in% c("work","trans","rec"))){ #Generating Results for "work","trans",and "rec" when there is no need for stratification
 Y=as.formula(paste0("~",input$Outcome))
 X=as.formula(paste0("~",input$Group))
 
@@ -600,7 +600,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 ggplotly(P)%>%
   layout(autosize =TRUE, width = 500, height = 500)
 
-}else if(input$Facet=="None" & input$Outcome=="vig"){ #Generating Results for "vig" when there is no stratification
+}else if(input$Facet=="None" & input$Outcome=="vig"){ #Generating Results for "vig" when there is no need for stratification
 Y=as.formula(paste0("~",input$Outcome))
 X=as.formula(paste0("~",input$Group))
 
@@ -643,7 +643,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 ggplotly(P)
 
-}else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="High"){ #Generating Results for "ptotalCat" "High" level when there is no stratification
+}else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="High"){ #Generating Results for "ptotalCat" "High" level when there is no need for stratification
 
 Y=as.formula(paste0("~",input$Outcome))
 X=as.formula(paste0("~",input$Group))
@@ -682,7 +682,7 @@ names(Res)[1]="Groups"
 ggplotly(P)
 }
 
-else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Moderate") #Generating Results for "ptotalCat" "Moderate" level when there is no stratification
+else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Moderate") #Generating Results for "ptotalCat" "Moderate" level when there is no need for stratification
 {
 
 Y=as.formula(paste0("~",input$Outcome))
@@ -722,7 +722,7 @@ names(Res)[1]="Groups"
 ggplotly(P)
 }
 
-else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Low") #Generating Results for "ptotalCat" "Low" level when there is no stratification
+else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Low") #Generating Results for "ptotalCat" "Low" level when there is no need for stratification
 {
 
 Y=as.formula(paste0("~",input$Outcome))
