@@ -350,7 +350,7 @@ if(Popdata()==NULL){
         session = session,
         title = "Error...",
         text = "Please Upload Microsoft Access MDB file",
-        type = "error"	
+        type = "error")
 } else {
 output$plot2<- renderPlotly({
 
