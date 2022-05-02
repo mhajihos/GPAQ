@@ -345,6 +345,13 @@ observe({
 
 observeEvent(input$do2,{
 
+if(Popdata==NULL){
+      sendSweetAlert(
+        session = session,
+        title = "Error...",
+        text = "Please Upload Microsoft Access MDB file",
+        type = "error"	
+}else{
 output$plot2<- renderPlotly({
 
 if(input$Facet=="None" & input$Outcome=="meet"){
@@ -851,7 +858,7 @@ names(Res)[1]="Groups"
  theme(text=element_text(family="Times",size=12, color="black"))+
  theme(panel.spacing = unit(1, "lines"))
 ggplotly(P)
-}
+}}
 
 
 })
