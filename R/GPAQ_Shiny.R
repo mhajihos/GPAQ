@@ -4,6 +4,7 @@ GPAQ_Shiny=function()
 {
 
 suppressMessages(suppressWarnings(require(shinythemes)))
+suppressMessages(suppressWarnings(require(shinyWidgets)))	
 suppressMessages(suppressWarnings(require(shiny)))
 suppressMessages(suppressWarnings(require(GPAQ)))	
 suppressMessages(suppressWarnings(require(dplyr)))	
