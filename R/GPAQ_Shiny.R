@@ -345,7 +345,7 @@ observe({
 
 observeEvent(input$do2,{
 
-if(Popdata()==NULL){
+if(is.null(Popdata())){
       sendSweetAlert(
         session = session,
         title = "Error...",
