@@ -18,4 +18,5 @@ Imports:
     data.table,
     ggplot2,
     plotly,
-    ggforce
+    ggforce,
+    Hmisc
