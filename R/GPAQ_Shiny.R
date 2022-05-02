@@ -17,13 +17,13 @@ suppressMessages(suppressWarnings(require(plotly)))
 suppressMessages(suppressWarnings(require(ggforce)))
 
 	
-roundUp <- function(x, nice=c(1,2,4,5,6,8,10)) {
+roundUp=function(x, nice=c(1,2,4,5,6,8,10)) {
     if(length(x) != 1) stop("'x' must be of length 1")
     10^floor(log10(x)) * nice[[which(x <= 10^floor(log10(x)) * nice)[[1]]]]
 }
 
 
-ui <- navbarPage(
+ui = navbarPage(
   "WHO Global Physical Activity Questionnaire (GPAQ)",collapsible = TRUE,
 		 inverse = TRUE, theme = shinytheme("spacelab"),
   tabPanel("Individual Level GPAQ (Unweighted)",
@@ -215,12 +215,12 @@ mainPanel(
 
 
 
-server <- function(input, output) {
+server = function(input, output) {
 options(shiny.maxRequestSize=100*1024^2)
 
 
 #Individual Level
-data <- reactive({
+data = reactive({
 my_data=data.frame(p2=input$p2,p3a=input$p3a,
 			p3b=input$p3b,p5=input$p5,p6a=input$p6a,
 			p6b=input$p6b,p8=input$p8,p9a=input$p9a,
@@ -256,7 +256,7 @@ return(data2)
 })
 
 
-output$plot1 <- renderPlotly({
+output$plot1 = renderPlotly({
 
 
 df=setDT(data())
@@ -275,7 +275,7 @@ Names=c("Meet WHO recommendations",
 		"Total Physical Activity Score Category")
 
 df=data.frame(Measures=Names,Results=t(df))
-  summary_statistics <- tableGrob(
+  summary_statistics = tableGrob(
     df,
     theme = ttheme_default(
       base_size =14,
@@ -302,7 +302,7 @@ steps = list(
 	list(range = c(600,1200), color = "yellow"),
 	list(range = c(1201,roundUp(value)), color = "lightgreen"))
 ))
-fig <- fig%>%
+fig = fig%>%
 layout(
 margin =list(l=50,r=50),
 font = list(color="Black", family ="Arial"))
@@ -314,10 +314,10 @@ fig
 
 
 #Population Level
-Popdata <- reactive({
-    inFile <- input$file_inputter
+Popdata = reactive({
+    inFile = input$file_inputter
     if (is.null(inFile)) return(NULL)
-   channel<- odbcConnectAccess(inFile$datapath)
+   channel= odbcConnectAccess(inFile$datapath)
 
 Popdata1=sqlFetch(channel,"data1",as.is=T)
 Popdata2=sqlFetch(channel,"data2",as.is=T)
@@ -338,7 +338,7 @@ Data1=data.frame(Data)
 observe({
   
     # Change values for columns 
-    s_options <- as.list(colnames(Popdata()))
+    s_options = as.list(colnames(Popdata()))
 	updateSelectInput(inputId = "Group", choices = s_options)
   	})
 
@@ -359,7 +359,7 @@ UCI=as.numeric(substr(R[,3],8,12))
 Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -381,7 +381,7 @@ UCI=as.numeric(substr(R[,3],8,12))
 Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -406,7 +406,7 @@ Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
 if(input$Outcome=="percentwork"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -416,7 +416,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percenttrans"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -426,7 +426,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percentrec"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -451,7 +451,7 @@ Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
 if(input$Outcome=="percentwork"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -461,7 +461,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percenttrans"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -471,7 +471,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percentrec"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -496,7 +496,7 @@ Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
 if(input$Outcome=="work"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -506,7 +506,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="trans"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -516,7 +516,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="rec"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -541,7 +541,7 @@ Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
 if(input$Outcome=="work"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -551,7 +551,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="trans"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -561,7 +561,7 @@ P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="rec"){
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -586,7 +586,7 @@ UCI=as.numeric(substr(R[,3],8,12))
 Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -607,7 +607,7 @@ UCI=as.numeric(substr(R[,3],8,12))
 Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
 names(Res)[1]="Groups"
 
-P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -645,7 +645,7 @@ Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
 names(Res)[1]="Groups"
 
- P <- ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P = ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -685,7 +685,7 @@ Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
 names(Res)[1]="Groups"
 
- P <- ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P = ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -725,7 +725,7 @@ Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
 names(Res)[1]="Groups"
 
- P <- ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P = ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -764,7 +764,7 @@ Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 names(Res)[1]="Groups"
 
 
- P <- ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P = ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -803,7 +803,7 @@ Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 names(Res)[1]="Groups"
 
 
- P <- ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P = ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -842,7 +842,7 @@ Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 names(Res)[1]="Groups"
 
 
- P <- ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P = ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
