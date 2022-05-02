@@ -858,11 +858,11 @@ names(Res)[1]="Groups"
  theme(text=element_text(family="Times",size=12, color="black"))+
  theme(panel.spacing = unit(1, "lines"))
 ggplotly(P)
-}}
+}
 
 
 })
-})
+}})
 }
 
 shinyApp(ui = ui, server = server)
