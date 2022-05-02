@@ -3,6 +3,7 @@
 GPAQ_Shiny=function()
 {
 
+#loading required packages
 suppressMessages(suppressWarnings(require(shinythemes)))
 suppressMessages(suppressWarnings(require(shinyWidgets)))	
 suppressMessages(suppressWarnings(require(shiny)))
@@ -17,20 +18,20 @@ suppressMessages(suppressWarnings(require(ggplot2)))
 suppressMessages(suppressWarnings(require(plotly)))
 suppressMessages(suppressWarnings(require(ggforce)))
 
-	
+#To roundup numbers in the main functions	
 roundUp=function(x, nice=c(1,2,4,5,6,8,10)) {
     if(length(x) != 1) stop("'x' must be of length 1")
     10^floor(log10(x)) * nice[[which(x <= 10^floor(log10(x)) * nice)[[1]]]]
 }
 
-
+#User Interface
 ui = navbarPage(
   "WHO Global Physical Activity Questionnaire (GPAQ)",collapsible = TRUE,
 		 inverse = TRUE, theme = shinytheme("spacelab"),
-  tabPanel("Individual Level GPAQ (Unweighted)",
+  tabPanel("Individual Level GPAQ (Unweighted)", #First Main Tab
 		fluidPage( 
 			tabsetPanel(
-				tabPanel("Vigorous-Intensity Activities", br(),
+				tabPanel("Vigorous-Intensity Activities", br(), #subtab
 					fluidPage( 
 						fluidRow(
 						column(4,
@@ -77,7 +78,7 @@ mainPanel(tags$head(
 )),
 		
 
-			tabPanel("Moderate-Intensity Activities", br(),
+			tabPanel("Moderate-Intensity Activities", br(), #subtab
 				fluidPage( 
 						fluidRow(
 						column(4,
@@ -123,7 +124,7 @@ mainPanel(tags$head(
 )),
 	
 
-			tabPanel("Walking or Bicycling/Sitting or Reclining ", br(),
+			tabPanel("Walking or Bicycling/Sitting or Reclining ", br(), #subtab
 			fluidPage( 
 					fluidRow(
 					column(4,
@@ -177,7 +178,7 @@ mainPanel(tags$head(
  plotlyOutput("plot1", height =400, width =400))))
 )))),
 
-			tabPanel("Population Level GPAQ (Weighted)",
+			tabPanel("Population Level GPAQ (Weighted)", #Second Main Tab
 			fluidPage(
 			sidebarLayout(
        		sidebarPanel(
@@ -220,14 +221,17 @@ server = function(input, output,session) {
 options(shiny.maxRequestSize=100*1024^2)
 
 
-#Individual Level
+#Individual Level GPAQ
 data = reactive({
+
+#Make a dataset from user entries
 my_data=data.frame(p2=input$p2,p3a=input$p3a,
 			p3b=input$p3b,p5=input$p5,p6a=input$p6a,
 			p6b=input$p6b,p8=input$p8,p9a=input$p9a,
 			p9b=input$p9b,p11=input$p11,p12a=input$p12a,
 			p12b=input$p12b,p14=input$p14,p15a=input$p15a,
 			p15b=input$p15b,p16a=input$p16a,p16b=input$p16b,valid=1,wstep1=1)
+
 
 my_data$p1=1
 my_data$p4=1
@@ -236,6 +240,8 @@ my_data$p10=1
 my_data$p13=1
 my_data=data.frame(my_data)
 
+#Unweighted variables calculations
+#Main Function for Individual Level GPAQ
 data=gpaq(my_data)
 data$meet=as.factor(substring(data$meet,2))
 data$work=as.factor(substring(data$work,2))
@@ -244,6 +250,7 @@ data$rec=as.factor(substring(data$rec,2))
 data$vig=as.factor(substring(data$vig,2))
 data$ptotalCat=as.factor(substring(data$ptotalCat,3))
 
+#Making final dataset before analysis
 Res=c("meet","ptotal","percentwork","percenttrans","percentrec",
 		"work","trans","rec","vig","pworkday","ptravelday",
 		"precday","ptotalday","ptotalCat")
@@ -256,10 +263,11 @@ data2[,c(10:13)]=round(data2[,c(10:13)],2)
 return(data2)
 })
 
-
+#Output plot for the individual-level GPAQ
 output$plot1 = renderPlotly({
 
 
+#Making results table (Not shown in the output page)
 df=setDT(data())
 Names=c("Meet WHO recommendations",
 	"Total Physical Activity Score","Percent of all activity from work-related activities",
@@ -286,6 +294,8 @@ df=data.frame(Measures=Names,Results=t(df))
     rows = NULL
     )
 
+	
+#Output Plot
 value=as.numeric(df[2,2])
 fig <- plot_ly(
 domain = list(x = c(0,roundUp(value)), y = c(0,roundUp(value))),
@@ -314,7 +324,9 @@ fig
 
 
 
-#Population Level
+	
+#Population Level GPAQ
+#Reading a dataset from user entries
 Popdata = reactive({
     inFile = input$file_inputter
     if (is.null(inFile)) return(NULL)
@@ -344,6 +356,7 @@ observe({
   	})
 
 
+
 observeEvent(input$do2,{
 
 if(is.null(Popdata())){
@@ -353,6 +366,9 @@ if(is.null(Popdata())){
         text = "Please Upload Microsoft Access MDB file",
         type = "error")
 } else {
+
+#Main Functions for Population Level GPAQ
+#Output Plots
 output$plot2<- renderPlotly({
 
 if(input$Facet=="None" & input$Outcome=="meet"){
