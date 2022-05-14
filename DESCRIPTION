@@ -13,7 +13,7 @@ Imports:
     dplyr,
     shinythemes,
     shiny,
-    RODBC,
+    odbc,
     gridExtra,
     data.table,
     ggplot2,
