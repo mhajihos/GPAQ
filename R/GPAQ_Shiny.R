@@ -17,6 +17,7 @@ suppressMessages(suppressWarnings(require(data.table)))
 suppressMessages(suppressWarnings(require(ggplot2)))	
 suppressMessages(suppressWarnings(require(plotly)))
 suppressMessages(suppressWarnings(require(ggforce)))
+suppressMessages(suppressWarnings(require(RODBC)))	
 
 #To roundup numbers in the main functions	
 roundUp<-function(x, nice=c(1,2,4,5,6,8,10)) {
