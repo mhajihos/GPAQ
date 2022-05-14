@@ -347,8 +347,11 @@ Popdata <- reactive({
                                       ifelse(name=="Driver do Microsoft Access (*.mdb)", "mdb",
                                              ifelse(name=="Microsoft Access-Treiber (*.mdb)", "mdb", NA))))) %>%
     	filter(!is.na(mdb_driver))
+	 
+        # subset to only unique MDB drivers
+        unique_mdb <- unique(odbc_drivers$name)
 	MDBPATH <- input$file_inputter
-	PATH <- paste0(odbc_drivers, "DBQ=", MDBPATH)
+	PATH <- paste0(paste0("Driver={", unique_mdb[1], "};DBQ=", MDBPATH))
 	channel<- odbcDriverConnect(PATH)
 	Popdata1<-sqlFetch(channel,"data1",as.is=T)
 	Popdata2<-sqlFetch(channel,"data2",as.is=T)
