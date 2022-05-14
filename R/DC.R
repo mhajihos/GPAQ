@@ -19,7 +19,7 @@ data %>%
   # Recode variables into minutes only
   mutate(p3amin <- ifelse(is.na(p3a), 0, p3a*60)) %>% 
   mutate(p3bmin <- ifelse(is.na(p3b), 0, p3b)) %>% 
-  mutate(p3 <- p3amin + p3bmin) %>% 
+  mutate(p3 = p3amin + p3bmin) %>% 
   # Cleans p1-p3
   mutate(p2 <- replace(p2, is.na(p2) | p2==99, 0)) %>% 
   mutate(p2cln <- if_else((p1==1 & p2>0 & p2<8) | (p1==2 & p2==0), 1, 2, missing = 2)) %>% 
@@ -43,7 +43,7 @@ data %>%
   # Recode variables into minutes only
   mutate(p6amin <- ifelse(is.na(p6a), 0, p6a*60)) %>% 
   mutate(p6bmin <- ifelse(is.na(p6b), 0, p6b)) %>% 
-  mutate(p6 <- p6amin + p6bmin) %>% 
+  mutate(p6 = p6amin + p6bmin) %>% 
   # Cleans p4-p6
   mutate(p5 <- replace(p5, is.na(p5) | p5==99, 0)) %>% 
   mutate(p5cln <- if_else((p4==1 & p5>0 & p5<8) | (p4==2 & p5==0), 1, 2, missing = 2)) %>% 
@@ -67,7 +67,7 @@ data %>%
   # Recode variables into minutes only
   mutate(p9amin <- ifelse(is.na(p9a), 0, p9a*60)) %>% 
   mutate(p9bmin <- ifelse(is.na(p9b), 0, p9b)) %>% 
-  mutate(p9 <- p9amin + p9bmin) %>% 
+  mutate(p9 = p9amin + p9bmin) %>% 
   # Cleans p7-p9
   mutate(p8 <- replace(p8, is.na(p8) | p8==99, 0)) %>% 
   mutate(p8cln <- if_else((p7==1 & p8>0 & p8<8) | (p7==2 & p8==0), 1, 2, missing = 2)) %>% 
@@ -91,7 +91,7 @@ data %>%
   # Recode variables into minutes only
   mutate(p12amin <- ifelse(is.na(p12a), 0, p12a*60)) %>% 
   mutate(p12bmin <- ifelse(is.na(p12b), 0, p12b)) %>% 
-  mutate(p12 <- p12amin + p12bmin) %>% 
+  mutate(p12 = p12amin + p12bmin) %>% 
   # Cleans p10-p12
   mutate(p11 <- replace(p11, is.na(p11) | p11==99, 0)) %>% 
   mutate(p11cln <- if_else((p10==1 & p11>0 & p11<8) | (p10==2 & p11==0), 1, 2, missing = 2)) %>% 
@@ -115,7 +115,7 @@ data %>%
   # Recode variables into minutes only
   mutate(p15amin <- ifelse(is.na(p15a), 0, p15a*60)) %>% 
   mutate(p15bmin <- ifelse(is.na(p15b), 0, p15b)) %>% 
-  mutate(p15 <- p15amin + p15bmin) %>% 
+  mutate(p15 = p15amin + p15bmin) %>% 
   # Cleans p13-p15
   mutate(p14 <- replace(p14, is.na(p14) | p14==99, 0)) %>% 
   mutate(p14cln <- if_else((p13==1 & p14>0 & p14<8) | (p13==2 & p14==0), 1, 2, missing = 2)) %>% 
@@ -138,7 +138,7 @@ data %>%
   # Recode variables into minutes only
   mutate(p16amin <- ifelse(p16a>=0 & p16a<=24, p16a*60, NA)) %>% 
   mutate(p16bmin <- ifelse(p16b>=0 & p16b<=60, p16b, NA)) %>% 
-  mutate(p16 <- p16amin + p16bmin) %>% 
+  mutate(p16 = p16amin + p16bmin) %>% 
   # Cleans p16
   mutate(p16cln <- if_else(p16>=0 & p16<1441, 1, 2, missing = 2)) %>%
   
