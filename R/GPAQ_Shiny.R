@@ -340,7 +340,10 @@ Popdata <- reactive({
 } else {
   # Windows
   # check for Microsoft Access Drivers in Windows
-	channel<- odbcDriverConnect(input$file_inputter)
+	DRIVERINFO <- "Driver={Microsoft Access Driver (*.mdb, *.accdb)};"
+	MDBPATH <- input$file_inputter
+	PATH <- paste0(DRIVERINFO, "DBQ=", MDBPATH)
+	channel<- odbcDriverConnect(PATH)
 	Popdata1<-sqlFetch(channel,"data1",as.is=T)
 	Popdata2<-sqlFetch(channel,"data2",as.is=T)
 	odbcClose(channel)
