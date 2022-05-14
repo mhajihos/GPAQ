@@ -24,27 +24,27 @@
 #' "ptotalCat": indicates whether or not respondent had "Low", "Medium", or "High" physical activity.
 #'
 #' @examples
-#' data=gpag(my_data)
+#' data<-gpag(my_data)
 #'
 #' @export
 
 
-gpaq=function(Data)
+gpaq<-function(Data)
 {
 suppressMessages(suppressWarnings(library(survey)))
 suppressMessages(suppressWarnings(library(dplyr)))
 
 
-df=DC(Data)
-df=Pcomposition(df)
-df=Pnoactivitybyset(df)
-df=Pnotmeetingrecs(df)
-df=Pnovigorous(df)
-df=Psedentary(df)
-df=Psetspecific(df)
-df=Ptotal(df)
+df<-DC(Data)
+df<-Pcomposition(df)
+df<-Pnoactivitybyset(df)
+df<-Pnotmeetingrecs(df)
+df<-Pnovigorous(df)
+df<-Psedentary(df)
+df<-Psetspecific(df)
+df<-Ptotal(df)
 
 
-df_valid=subset(df,(df$valid==1 & !is.na(df$wstep1)))
+df_valid<-subset(df,(df$valid==1 & !is.na(df$wstep1)))
 return(df_valid)
 }
