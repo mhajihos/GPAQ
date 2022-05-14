@@ -332,16 +332,15 @@ Popdata <- reactive({
     inFile <- input$file_inputter
     if (is.null(inFile)) return(NULL)
 		
-   # create a matrix for including as filter into tk_choose.files function below
-if(.Platform$OS.type == "unix") 
+ if(.Platform$OS.type == "unix") 
 {
-	  # MacOS
-  data1 <- mdb.get(steps_mdb_name, tables = "data1")
-  data2 <- mdb.get(steps_mdb_name, tables = "data2")
+  # MacOS
+  Popdata1<-mdb.get(steps_mdb_name, tables = "data1")
+  Popdata2<-mdb.get(steps_mdb_name, tables = "data2")
 } else {
   # Windows
   # check for Microsoft Access Drivers in Windows
-	channel<- odbcDriverConnect(inFile$datapath)
+	channel<- odbcDriverConnect(input$file_inputter)
 	Popdata1<-sqlFetch(channel,"data1",as.is=T)
 	Popdata2<-sqlFetch(channel,"data2",as.is=T)
 	odbcClose(channel)
