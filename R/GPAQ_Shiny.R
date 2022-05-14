@@ -10,7 +10,7 @@ suppressMessages(suppressWarnings(require(shiny)))
 suppressMessages(suppressWarnings(require(GPAQ)))	
 suppressMessages(suppressWarnings(require(dplyr)))	
 suppressMessages(suppressWarnings(require(survey)))	
-suppressMessages(suppressWarnings(require(RODBC)))
+suppressMessages(suppressWarnings(require(odbc)))
 suppressMessages(suppressWarnings(require(Hmisc)))	
 suppressMessages(suppressWarnings(require(gridExtra)))	
 suppressMessages(suppressWarnings(require(data.table)))	
@@ -330,10 +330,21 @@ fig
 Popdata <- reactive({
     inFile <- input$file_inputter
     if (is.null(inFile)) return(NULL)
-   channel<- odbcConnectAccess(inFile$datapath)
-
-Popdata1<-sqlFetch(channel,"data1",as.is=T)
-Popdata2<-sqlFetch(channel,"data2",as.is=T)
+		
+   # create a matrix for including as filter into tk_choose.files function below
+if(.Platform$OS.type == "unix") 
+{
+	  # MacOS
+  data1 <- mdb.get(steps_mdb_name, tables = "data1")
+  data2 <- mdb.get(steps_mdb_name, tables = "data2")
+} else {
+  # Windows
+  # check for Microsoft Access Drivers in Windows
+	channel<- odbcDriverConnect(inFile$datapath)
+	Popdata1<-sqlFetch(channel,"data1",as.is=T)
+	Popdata2<-sqlFetch(channel,"data2",as.is=T)
+	odbcClose(channel)
+	}
 my_Popdata<-data.frame(merge(Popdata1,Popdata2, by="QR"))
 names(my_Popdata)<-tolower(names(my_Popdata))
 
