@@ -1,6 +1,6 @@
 #Main-Shiny_App_Code
 
-GPAQ_Shiny=function()
+GPAQ_Shiny<-function()
 {
 
 #loading required packages
@@ -19,13 +19,13 @@ suppressMessages(suppressWarnings(require(plotly)))
 suppressMessages(suppressWarnings(require(ggforce)))
 
 #To roundup numbers in the main functions	
-roundUp=function(x, nice=c(1,2,4,5,6,8,10)) {
+roundUp<-function(x, nice=c(1,2,4,5,6,8,10)) {
     if(length(x) != 1) stop("'x' must be of length 1")
     10^floor(log10(x)) * nice[[which(x <= 10^floor(log10(x)) * nice)[[1]]]]
 }
 
 #User Interface
-ui = navbarPage(
+ui <- navbarPage(
   "WHO Global Physical Activity Questionnaire (GPAQ)",collapsible = TRUE,
 		 inverse = TRUE, theme = shinytheme("spacelab"),
   tabPanel("Individual Level GPAQ (Unweighted)", #First Main Tab
@@ -217,15 +217,15 @@ mainPanel(
 
 
 
-server = function(input, output,session) {
+server <- function(input, output,session) {
 options(shiny.maxRequestSize=100*1024^2)
 
 
 #Individual Level GPAQ
-data = reactive({
+data <- reactive({
 
 #Make a dataset from user entries
-my_data=data.frame(p2=input$p2,p3a=input$p3a,
+my_data<-data.frame(p2=input$p2,p3a=input$p3a,
 			p3b=input$p3b,p5=input$p5,p6a=input$p6a,
 			p6b=input$p6b,p8=input$p8,p9a=input$p9a,
 			p9b=input$p9b,p11=input$p11,p12a=input$p12a,
@@ -238,38 +238,38 @@ my_data$p4=1
 my_data$p7=1
 my_data$p10=1
 my_data$p13=1
-my_data=data.frame(my_data)
+my_data<-data.frame(my_data)
 
 #Unweighted variables calculations
 #Main Function for Individual Level GPAQ
-data=gpaq(my_data)
-data$meet=as.factor(substring(data$meet,2))
-data$work=as.factor(substring(data$work,2))
-data$trans=as.factor(substring(data$trans,2))
-data$rec=as.factor(substring(data$rec,2))
-data$vig=as.factor(substring(data$vig,2))
-data$ptotalCat=as.factor(substring(data$ptotalCat,3))
+data<-gpaq(my_data)
+data$meet<-as.factor(substring(data$meet,2))
+data$work<-as.factor(substring(data$work,2))
+data$trans<-as.factor(substring(data$trans,2))
+data$rec<-as.factor(substring(data$rec,2))
+data$vig<-as.factor(substring(data$vig,2))
+data$ptotalCat<-as.factor(substring(data$ptotalCat,3))
 
 #Making final dataset before analysis
-Res=c("meet","ptotal","percentwork","percenttrans","percentrec",
+Res<-c("meet","ptotal","percentwork","percenttrans","percentrec",
 		"work","trans","rec","vig","pworkday","ptravelday",
 		"precday","ptotalday","ptotalCat")
-data2=data[,Res]
-data2=as.data.frame(data2)
-data2[,c(3:5)]=paste(round(data2[,c(3:5)],4)*100,"%")
-data2[,c(10:13)]=round(data2[,c(10:13)],2)
+data2<-data[,Res]
+data2<-as.data.frame(data2)
+data2[,c(3:5)]<-paste(round(data2[,c(3:5)],4)*100,"%")
+data2[,c(10:13)]<-round(data2[,c(10:13)],2)
 
 
 return(data2)
 })
 
 #Output plot for the individual-level GPAQ
-output$plot1 = renderPlotly({
+output$plot1 <- renderPlotly({
 
 
 #Making results table (Not shown in the output page)
-df=setDT(data())
-Names=c("Meet WHO recommendations",
+df<-setDT(data())
+Names<-c("Meet WHO recommendations",
 	"Total Physical Activity Score","Percent of all activity from work-related activities",
 		"Percent of all activity from transportation-related activities",
 		"Percent of all activity from recreational activities",
@@ -283,7 +283,7 @@ Names=c("Meet WHO recommendations",
 		"Sum of all activity per week divided by 7 to get avg. per day in minutes",
 		"Total Physical Activity Score Category")
 
-df=data.frame(Measures=Names,Results=t(df))
+df<-data.frame(Measures=Names,Results=t(df))
   summary_statistics = tableGrob(
     df,
     theme = ttheme_default(
@@ -296,7 +296,7 @@ df=data.frame(Measures=Names,Results=t(df))
 
 	
 #Output Plot
-value=as.numeric(df[2,2])
+value<-as.numeric(df[2,2])
 fig <- plot_ly(
 domain = list(x = c(0,roundUp(value)), y = c(0,roundUp(value))),
 value = value,
@@ -313,7 +313,7 @@ steps = list(
 	list(range = c(600,1200), color = "yellow"),
 	list(range = c(1201,roundUp(value)), color = "lightgreen"))
 ))
-fig = fig%>%
+fig <- fig%>%
 layout(
 margin =list(l=50,r=50),
 font = list(color="Black", family ="Arial"))
@@ -327,23 +327,23 @@ fig
 	
 #Population Level GPAQ
 #Reading a dataset from user entries
-Popdata = reactive({
-    inFile = input$file_inputter
+Popdata <- reactive({
+    inFile <- input$file_inputter
     if (is.null(inFile)) return(NULL)
-   channel= odbcConnectAccess(inFile$datapath)
+   channel<- odbcConnectAccess(inFile$datapath)
 
-Popdata1=sqlFetch(channel,"data1",as.is=T)
-Popdata2=sqlFetch(channel,"data2",as.is=T)
-my_Popdata=data.frame(merge(Popdata1,Popdata2, by="QR"))
-names(my_Popdata)=tolower(names(my_Popdata))
+Popdata1<-sqlFetch(channel,"data1",as.is=T)
+Popdata2<-sqlFetch(channel,"data2",as.is=T)
+my_Popdata<-data.frame(merge(Popdata1,Popdata2, by="QR"))
+names(my_Popdata)<-tolower(names(my_Popdata))
 
-my_Popdata$age4y=NA
-	my_Popdata$age4y[18<=my_Popdata$age & my_Popdata$age<=29]="18-29"
-	my_Popdata$age4y[30<=my_Popdata$age & my_Popdata$age<=44]="30-44"
-	my_Popdata$age4y[45<=my_Popdata$age & my_Popdata$age<=59]="45-59"
-	my_Popdata$age4y[60<=my_Popdata$age & my_Popdata$age<=69]="60-69"
-Data=gpaq(my_Popdata)
-Data1=data.frame(Data)
+my_Popdata$age4y<-NA
+	my_Popdata$age4y[18<=my_Popdata$age & my_Popdata$age<=29]<-"18-29"
+	my_Popdata$age4y[30<=my_Popdata$age & my_Popdata$age<=44]<-"30-44"
+	my_Popdata$age4y[45<=my_Popdata$age & my_Popdata$age<=59]<-"45-59"
+	my_Popdata$age4y[60<=my_Popdata$age & my_Popdata$age<=69]<-"60-69"
+Data<-gpaq(my_Popdata)
+Data1<-data.frame(Data)
 
 })
 
@@ -351,7 +351,7 @@ Data1=data.frame(Data)
 observe({
   
     # Change values for columns 
-    s_options = as.list(colnames(Popdata()))
+    s_options <- as.list(colnames(Popdata()))
 	updateSelectInput(inputId = "Group", choices = s_options)
   	})
 
@@ -374,18 +374,18 @@ output$plot2<- renderPlotly({
 
 
 if(input$Facet=="None" & input$Outcome=="meet"){ #Generating Results for WHO PA recommendation "meet" when there is no need for stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group))
 
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -397,17 +397,17 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 ggplotly(P)
 
 }else if(input$Facet!="None" & input$Outcome=="meet"){ #Generating Results for WHO PA recommendation "meet" with stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group,"+",input$Facet))
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group,"+",input$Facet))
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_meet")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -420,19 +420,19 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 ggplotly(P) 
 
 }else if(input$Facet=="None" & (input$Outcome %in% c("percentwork","percenttrans","percentrec"))){ #Generating Results for "percentwork","percenttrans", and "percentrec" when there is no need for stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group))
 
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_composition")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_composition")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
 if(input$Outcome=="percentwork"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -442,7 +442,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percenttrans"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -452,7 +452,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percentrec"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -465,19 +465,19 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 ggplotly(P)
 
 }else if(input$Facet!="None" & (input$Outcome %in% c("percentwork","percenttrans","percentrec"))){ #Generating Results for "percentwork","percenttrans", and "percentrec" with stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group,"+",input$Facet))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group,"+",input$Facet))
 
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_composition")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_composition")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
 if(input$Outcome=="percentwork"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -487,7 +487,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percenttrans"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -497,7 +497,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="percentrec"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -510,19 +510,19 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 ggplotly(P)
 
 }else if(input$Facet=="None" & (input$Outcome %in% c("work","trans","rec"))){ #Generating Results for "work","trans",and "rec" when there is no need for stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group))
 
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_activity")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_activity")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
 if(input$Outcome=="work"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -532,7 +532,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="trans"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -542,7 +542,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="rec"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -555,19 +555,19 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 ggplotly(P)
 
 }else if(input$Facet!="None" & (input$Outcome %in% c("work","trans","rec"))){ #Generating Results for "work","trans",and "rec" with stratification
-Y=as.formula(paste0("~",input$Outcome)) 
-X=as.formula(paste0("~",input$Group,"+",input$Facet))
+Y<-as.formula(paste0("~",input$Outcome)) 
+X<-as.formula(paste0("~",input$Group,"+",input$Facet))
 
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_activity")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_activity")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
 if(input$Outcome=="work"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -577,7 +577,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="trans"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -587,7 +587,7 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	theme(panel.spacing = unit(1, "lines"))
 
 }else if(input$Outcome=="rec"){
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -601,18 +601,18 @@ ggplotly(P)%>%
   layout(autosize =TRUE, width = 500, height = 500)
 
 }else if(input$Facet=="None" & input$Outcome=="vig"){ #Generating Results for "vig" when there is no need for stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group))
 
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_vigorous")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_vigorous")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -623,17 +623,17 @@ P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 ggplotly(P)
 
 }else if(input$Facet!="None" & input$Outcome=="vig"){ #Generating Results for "vig" with stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group,"+",input$Facet))
-R=As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_vigorous")
-Names=R[,1]
-Average=R[,2]*100
-LCI=as.numeric(substr(R[,3],1,5))
-UCI=as.numeric(substr(R[,3],8,12))
-Res=data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
-names(Res)[1]="Groups"
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group,"+",input$Facet))
+R<-As_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_vigorous")
+Names<-R[,1]
+Average<-R[,2]*100
+LCI<-as.numeric(substr(R[,3],1,5))
+UCI<-as.numeric(substr(R[,3],8,12))
+Res<-data.frame(factor(Names),Average,LCI=LCI*100,UCI=UCI*100)
+names(Res)[1]<-"Groups"
 
-P = ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+P <- ggplot(data=Res, aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
 	geom_point()+ 
 	geom_errorbarh(height=.1)+
 	geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -645,33 +645,33 @@ ggplotly(P)
 
 }else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="High"){ #Generating Results for "ptotalCat" "High" level when there is no need for stratification
 
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group))
-R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group))
+R1<-PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
 
-Names=R1[,1]
-Ave1=R1[,2]*100
-LCI1=as.numeric(substr(R1[,3],1,5))
-UCI1=as.numeric(substr(R1[,3],8,12))
-T1="The proportion of people in High level of physical activity"
+Names<-R1[,1]
+Ave1<-R1[,2]*100
+LCI1<-as.numeric(substr(R1[,3],1,5))
+UCI1<-as.numeric(substr(R1[,3],8,12))
+T1<-"The proportion of people in High level of physical activity"
 
-Ave2=R1[,4]*100
-LCI2=as.numeric(substr(R1[,5],1,5))
-UCI2=as.numeric(substr(R1[,5],8,12))
-T2="The proportion of people in Moderate level of physical activity"
+Ave2<-R1[,4]*100
+LCI2<-as.numeric(substr(R1[,5],1,5))
+UCI2<-as.numeric(substr(R1[,5],8,12))
+T2<-"The proportion of people in Moderate level of physical activity"
 
-Ave3=R1[,6]*100
-LCI3=as.numeric(substr(R1[,7],1,5))
-UCI3=as.numeric(substr(R1[,7],8,12))
-T3="The proportion of people in Low level of physical activity"
+Ave3<-R1[,6]*100
+LCI3<-as.numeric(substr(R1[,7],1,5))
+UCI3<-as.numeric(substr(R1[,7],8,12))
+T3<-"The proportion of people in Low level of physical activity"
 
-Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+Res<-data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
 			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
-names(Res)[1]="Groups"
+names(Res)[1]<-"Groups"
 
- P = ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P <- ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -685,33 +685,33 @@ ggplotly(P)
 else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Moderate") #Generating Results for "ptotalCat" "Moderate" level when there is no need for stratification
 {
 
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group))
-R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group))
+R1<-PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
 
-Names=R1[,1]
-Ave1=R1[,2]*100
-LCI1=as.numeric(substr(R1[,3],1,5))
-UCI1=as.numeric(substr(R1[,3],8,12))
-T1="The proportion of people in High level of physical activity"
+Names<-R1[,1]
+Ave1<-R1[,2]*100
+LCI1<-as.numeric(substr(R1[,3],1,5))
+UCI1<-as.numeric(substr(R1[,3],8,12))
+T1<-"The proportion of people in High level of physical activity"
 
-Ave2=R1[,4]*100
-LCI2=as.numeric(substr(R1[,5],1,5))
-UCI2=as.numeric(substr(R1[,5],8,12))
-T2="The proportion of people in Moderate level of physical activity"
+Ave2<-R1[,4]*100
+LCI2<-as.numeric(substr(R1[,5],1,5))
+UCI2<-as.numeric(substr(R1[,5],8,12))
+T2<-"The proportion of people in Moderate level of physical activity"
 
-Ave3=R1[,6]*100
-LCI3=as.numeric(substr(R1[,7],1,5))
-UCI3=as.numeric(substr(R1[,7],8,12))
-T3="The proportion of people in Low level of physical activity"
+Ave3<-R1[,6]*100
+LCI3<-as.numeric(substr(R1[,7],1,5))
+UCI3<-as.numeric(substr(R1[,7],8,12))
+T3<-"The proportion of people in Low level of physical activity"
 
-Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+Res<-data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
 			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
-names(Res)[1]="Groups"
+names(Res)[1]<-"Groups"
 
- P = ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P <- ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -725,33 +725,33 @@ ggplotly(P)
 else if(input$Facet=="None" & input$Outcome=="ptotalCat" & input$Levels=="Low") #Generating Results for "ptotalCat" "Low" level when there is no need for stratification
 {
 
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group))
-R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group))
+R1<-PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
 
-Names=R1[,1]
-Ave1=R1[,2]*100
-LCI1=as.numeric(substr(R1[,3],1,5))
-UCI1=as.numeric(substr(R1[,3],8,12))
-T1="The proportion of people in High level of physical activity"
+Names<-R1[,1]
+Ave1<-R1[,2]*100
+LCI1<-as.numeric(substr(R1[,3],1,5))
+UCI1<-as.numeric(substr(R1[,3],8,12))
+T1<-"The proportion of people in High level of physical activity"
 
-Ave2=R1[,4]*100
-LCI2=as.numeric(substr(R1[,5],1,5))
-UCI2=as.numeric(substr(R1[,5],8,12))
-T2="The proportion of people in Moderate level of physical activity"
+Ave2<-R1[,4]*100
+LCI2<-as.numeric(substr(R1[,5],1,5))
+UCI2<-as.numeric(substr(R1[,5],8,12))
+T2<-"The proportion of people in Moderate level of physical activity"
 
-Ave3=R1[,6]*100
-LCI3=as.numeric(substr(R1[,7],1,5))
-UCI3=as.numeric(substr(R1[,7],8,12))
-T3="The proportion of people in Low level of physical activity"
+Ave3<-R1[,6]*100
+LCI3<-as.numeric(substr(R1[,7],1,5))
+UCI3<-as.numeric(substr(R1[,7],8,12))
+T3<-"The proportion of people in Low level of physical activity"
 
-Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+Res<-data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
 			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
-names(Res)[1]="Groups"
+names(Res)[1]<-"Groups"
 
- P = ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P <- ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -762,35 +762,35 @@ names(Res)[1]="Groups"
 ggplotly(P)
 
 }else if(input$Facet!="None" & input$Outcome=="ptotalCat" & input$Levels=="High"){ #Generating Results for "ptotalCat" "High" level with stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group,"+",input$Facet))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group,"+",input$Facet))
 
-R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
-Names=R1[,1]
-Ave1=R1[,2]*100
-LCI1=as.numeric(substr(R1[,3],1,5))
-UCI1=as.numeric(substr(R1[,3],8,12))
-T1="The proportion of people in High level of physical activity"
+R1<-PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Names<-R1[,1]
+Ave1<-R1[,2]*100
+LCI1<-as.numeric(substr(R1[,3],1,5))
+UCI1<-as.numeric(substr(R1[,3],8,12))
+T1<-"The proportion of people in High level of physical activity"
 
-Ave2=R1[,4]*100
-LCI2=as.numeric(substr(R1[,5],1,5))
-UCI2=as.numeric(substr(R1[,5],8,12))
-T2="The proportion of people in Moderate level of physical activity"
+Ave2<-R1[,4]*100
+LCI2<-as.numeric(substr(R1[,5],1,5))
+UCI2<-as.numeric(substr(R1[,5],8,12))
+T2<-"The proportion of people in Moderate level of physical activity"
 
-Ave3=R1[,6]*100
-LCI3=as.numeric(substr(R1[,7],1,5))
-UCI3=as.numeric(substr(R1[,7],8,12))
-T3="The proportion of people in Low level of physical activity"
+Ave3<-R1[,6]*100
+LCI3<-as.numeric(substr(R1[,7],1,5))
+UCI3<-as.numeric(substr(R1[,7],8,12))
+T3<-"The proportion of people in Low level of physical activity"
 
 
-Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+Res<-data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
 			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
-names(Res)[1]="Groups"
+names(Res)[1]<-"Groups"
 
 
- P = ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P <- ggplot(data=subset(Res,Res$Level=="High"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -801,35 +801,35 @@ names(Res)[1]="Groups"
 ggplotly(P)
 
 }else if(input$Facet!="None" & input$Outcome=="ptotalCat" & input$Levels=="Moderate"){ #Generating Results for "ptotalCat" "Moderate" level with stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group,"+",input$Facet))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group,"+",input$Facet))
 
-R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
-Names=R1[,1]
-Ave1=R1[,2]*100
-LCI1=as.numeric(substr(R1[,3],1,5))
-UCI1=as.numeric(substr(R1[,3],8,12))
-T1="The proportion of people in High level of physical activity"
+R1<-PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Names<-R1[,1]
+Ave1<-R1[,2]*100
+LCI1<-as.numeric(substr(R1[,3],1,5))
+UCI1<-as.numeric(substr(R1[,3],8,12))
+T1<-"The proportion of people in High level of physical activity"
 
-Ave2=R1[,4]*100
-LCI2=as.numeric(substr(R1[,5],1,5))
-UCI2=as.numeric(substr(R1[,5],8,12))
-T2="The proportion of people in Moderate level of physical activity"
+Ave2<-R1[,4]*100
+LCI2<-as.numeric(substr(R1[,5],1,5))
+UCI2<-as.numeric(substr(R1[,5],8,12))
+T2<-"The proportion of people in Moderate level of physical activity"
 
-Ave3=R1[,6]*100
-LCI3=as.numeric(substr(R1[,7],1,5))
-UCI3=as.numeric(substr(R1[,7],8,12))
-T3="The proportion of people in Low level of physical activity"
+Ave3<-R1[,6]*100
+LCI3<-as.numeric(substr(R1[,7],1,5))
+UCI3<-as.numeric(substr(R1[,7],8,12))
+T3<-"The proportion of people in Low level of physical activity"
 
 
-Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+Res<-data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
 			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
-names(Res)[1]="Groups"
+names(Res)[1]<-"Groups"
 
 
- P = ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P <- ggplot(data=subset(Res,Res$Level=="Moderate"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
@@ -840,35 +840,35 @@ names(Res)[1]="Groups"
 ggplotly(P)
 
 }else if(input$Facet!="None" & input$Outcome=="ptotalCat" & input$Levels=="Low"){ #Generating Results for "ptotalCat" "Low" level with stratification
-Y=as.formula(paste0("~",input$Outcome))
-X=as.formula(paste0("~",input$Group,"+",input$Facet))
+Y<-as.formula(paste0("~",input$Outcome))
+X<-as.formula(paste0("~",input$Group,"+",input$Facet))
 
-R1=PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
-Names=R1[,1]
-Ave1=R1[,2]*100
-LCI1=as.numeric(substr(R1[,3],1,5))
-UCI1=as.numeric(substr(R1[,3],8,12))
-T1="The proportion of people in High level of physical activity"
+R1<-PtotalCat_svy_mean(Y,X,Data=Popdata(),id=psu,weights=wstep1,strata =stratum,CLN="cln_ptotal")
+Names<-R1[,1]
+Ave1<-R1[,2]*100
+LCI1<-as.numeric(substr(R1[,3],1,5))
+UCI1<-as.numeric(substr(R1[,3],8,12))
+T1<-"The proportion of people in High level of physical activity"
 
-Ave2=R1[,4]*100
-LCI2=as.numeric(substr(R1[,5],1,5))
-UCI2=as.numeric(substr(R1[,5],8,12))
-T2="The proportion of people in Moderate level of physical activity"
+Ave2<-R1[,4]*100
+LCI2<-as.numeric(substr(R1[,5],1,5))
+UCI2<-as.numeric(substr(R1[,5],8,12))
+T2<-"The proportion of people in Moderate level of physical activity"
 
-Ave3=R1[,6]*100
-LCI3=as.numeric(substr(R1[,7],1,5))
-UCI3=as.numeric(substr(R1[,7],8,12))
-T3="The proportion of people in Low level of physical activity"
+Ave3<-R1[,6]*100
+LCI3<-as.numeric(substr(R1[,7],1,5))
+UCI3<-as.numeric(substr(R1[,7],8,12))
+T3<-"The proportion of people in Low level of physical activity"
 
 
-Res=data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
+Res<-data.frame(factor(Names),Average=as.numeric(rbind(Ave1,Ave2,Ave3)),
 			LCI=as.numeric(rbind(LCI1*100,LCI2*100,LCI3*100)),
 			UCI=as.numeric(rbind(UCI1*100,UCI2*100,UCI3*100)),
 			Level=factor(rep(c("High","Moderate","Low"),each=length(Names))))
-names(Res)[1]="Groups"
+names(Res)[1]<-"Groups"
 
 
- P = ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
+ P <- ggplot(data=subset(Res,Res$Level=="Low"), aes(y=Groups, x=Average, xmin=LCI, xmax=UCI,color=Groups))+
  geom_point()+ 
  geom_errorbarh(height=.1)+
  geom_vline(xintercept=0, color="black", linetype="dashed", alpha=.5)+
