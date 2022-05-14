@@ -26,48 +26,48 @@
 
 
 
-PtotalCat_svy_mean=function(Outcome,Group=NULL,Data,id,weights,strata,CLN)
+PtotalCat_svy_mean<-function(Outcome,Group=NULL,Data,id,weights,strata,CLN)
 {
-Data_subset=subset(Data,Data[,CLN]==1)
+Data_subset<-subset(Data,Data[,CLN]==1)
 attach(Data_subset)
-Design=svydesign(id=id, weights=weights, strata=strata,data=Data_subset, nest=TRUE)
+Design<-svydesign(id=id, weights=weights, strata=strata,data=Data_subset, nest=TRUE)
 
 	 if(is.null(Group))
 	{
-S=svymean(Outcome,Design,na.rm=TRUE)
+S<-svymean(Outcome,Design,na.rm=TRUE)
 
-S1=data.frame(S)
-Category=rownames(S1)
-Estimation=round(S1[,1],4)
-CI=paste0(round(confint(S)[,1],4),"-",
+S1<-data.frame(S)
+Category<-rownames(S1)
+Estimation<-round(S1[,1],4)
+CI<-paste0(round(confint(S)[,1],4),"-",
 			round(confint(S)[,2],4))
 
-Res=data.frame(Category,Estimation,CI)
-names(Res)[c(2,3)]=c("ptotalCat","95%CI")
+Res<-data.frame(Category,Estimation,CI)
+names(Res)[c(2,3)]<-c("ptotalCat","95%CI")
 
 }else if(!is.null(Group))
 	{
-S=svyby(Outcome,Group,Design,svymean,vartype="ci",na.rm=TRUE)
-S=data.frame(S)
+S<-svyby(Outcome,Group,Design,svymean,vartype="ci",na.rm=TRUE)
+S<-data.frame(S)
 
-Category=rownames(S)
+Category<-rownames(S)
 
-Estimation1=round(S[,which(substr(colnames(S),12,15)=="High")],4)
-CI1=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[1]],4),"-",
+Estimation1<-round(S[,which(substr(colnames(S),12,15)=="High")],4)
+CI1<-paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[1]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[1]],4))
 
 
-Estimation2=round(S[,which(substr(colnames(S),12,19)=="Moderate")],4)
-CI2=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[2]],4),"-",
+Estimation2<-round(S[,which(substr(colnames(S),12,19)=="Moderate")],4)
+CI2<-paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[2]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[2]],4))
 
 
-Estimation3=round(S[,which(substr(colnames(S),12,14)=="Low")],4)
-CI3=paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[3]],4),"-",
+Estimation3<-round(S[,which(substr(colnames(S),12,14)=="Low")],4)
+CI3<-paste0(round(S[,which(substr(colnames(S),1,4)=="ci_l")[3]],4),"-",
 				round(S[,which(substr(colnames(S),1,4)=="ci_u")[3]],4))
 
-Res=data.frame(Category,Estimation1,CI1,Estimation2,CI3,Estimation3,CI2)
-names(Res)[c(2,3,4,5,6,7)]=c("High","95%CI_High",
+Res<-data.frame(Category,Estimation1,CI1,Estimation2,CI3,Estimation3,CI2)
+names(Res)[c(2,3,4,5,6,7)]<-c("High","95%CI_High",
 				"Moderate","95%CI_Moderate",
 				"Low","95%CI_Low")
 }
