@@ -53,17 +53,17 @@ my_data<- data.frame(merge(data1,data2, by="QR"))
 names(my_data)<- tolower(names(my_data))
 
 #Creat a new categorical age variable
-my_data$age4y=NA
-	my_data$age4y[18<=my_data$age & my_data$age<=29]="18-29"
-	my_data$age4y[30<=my_data$age & my_data$age<=44]="30-44"
-	my_data$age4y[45<=my_data$age & my_data$age<=59]="45-59"
-	my_data$age4y[60<=my_data$age & my_data$age<=69]="60-69"
+my_data$age4y<-NA
+	my_data$age4y[18<=my_data$age & my_data$age<=29]<-"18-29"
+	my_data$age4y[30<=my_data$age & my_data$age<=44]<-"30-44"
+	my_data$age4y[45<=my_data$age & my_data$age<=59]<-"45-59"
+	my_data$age4y[60<=my_data$age & my_data$age<=69]<-"60-69"
 table(my_data$age4y)
 ```
 
 ### gpag (Data)
 ```
-data= gpag (my_data) 
+data<- gpag (my_data) 
 class (data)
 
 [1] "data.frame"
