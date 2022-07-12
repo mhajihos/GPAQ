@@ -9,12 +9,7 @@ data%>%
   mutate(p7t9 = ifelse(p7t9cln==1, p8*p9*4, NA)) %>% 
   mutate(p10t12 = ifelse(p10t12cln==1, p11*p12*8, NA)) %>% 
   mutate(p13t15 = ifelse(p13t15cln==1, p14*p15*4, NA)) %>% 
-  mutate(if (p1t3cln!=1) {ptotal =p4t6+p7t9+p10t12+p13t15}
-          else if (p4t6cln!=1) {ptotal =p1t3+p7t9+p10t12+p13t15}
-          else if (p7t9cln!=1) {ptotal =p1t3+p4t6+p10t12+p13t15}
-          else if (p10t12cln!=1) {ptotal =p1t3+p4t6+p7t9+p13t15}
-          else if (p13t15cln!=1) {ptotal =p1t3+p4t6+p7t9+p10t12}
-          else {ptotal =p1t3+p4t6+p7t9+p10t12+p13t15}) %>%
+  mutate(ptotal =sum(p1t3,p4t6,p7t9,p10t12,p13t15,na.rm=TRUE)) %>%
   mutate(meet = if_else(ptotal>=600, "_meets WHO recommendations", "_doesn't meet WHO recommendations", missing = "_doesn't meet WHO recommendations")) %>% 
   mutate(meet = factor(meet)) %>% 
   
