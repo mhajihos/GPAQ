@@ -61,9 +61,9 @@ my_data$age4y<-NA
 table(my_data$age4y)
 ```
 
-### gpag (Data)
+### gpaq (Data)
 ```
-data<- gpag (my_data) 
+data<- gpaq (my_data) 
 class (data)
 
 [1] "data.frame"
