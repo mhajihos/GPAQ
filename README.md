@@ -298,7 +298,7 @@ PtotalCat_svy_mean(~ptotalCat,Data=Data,id=psu,	weights=wstep1,strata =stratum,C
 ```
 
 ### GPAQ_Shiny:Shiny app for the Global Physical Activity Questionnaire (GPAQ)
-This function will Lunch a shiny app on the local server for weighted and unweighted data analysis.
+This function will Launch a shiny app on the local server for weighted and unweighted data analysis.
 
 ```
 GPAQ_Shiny()
